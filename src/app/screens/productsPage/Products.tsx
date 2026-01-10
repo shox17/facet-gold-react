@@ -287,7 +287,7 @@ export default function Products(props: ProductsProps) {
                           </Box>
                           <Box className="product-card-views">
                             <RemoveRedEyeIcon className="views-icon" />
-                            <span>{product.productViews || 0}</span>
+                            <span>{product.productViews}</span>
                           </Box>
                         </Box>
                       </Box>

@@ -4,6 +4,7 @@ import HomePage from "./screens/homePage";
 import ProductsPage from "./screens/productsPage";
 import OrdersPage from "./screens/ordersPage";
 import UserPage from "./screens/userPage";
+import CartPage from "./screens/cartPage/CartPage";
 import HomeNavbar from "./components/headers/HomeNavbar";
 import OtherNavbar from "./components/headers/OtherNavbar";
 import Footer from "./components/footer";
@@ -17,6 +18,7 @@ import { useGlobals } from "./hooks/useGlobals";
 import "../css/app.css";
 import "../css/navbar.css";
 import "../css/footer.css";
+import "../css/cart.css";
 
 function App() {
   const location = useLocation();
@@ -90,6 +92,15 @@ function App() {
         </Route>
         <Route path="/help">
           <HelpPage />
+        </Route>
+        <Route path="/cart">
+          <CartPage
+            cartItems={cartItems}
+            onAdd={onAdd}
+            onRemove={onRemove}
+            onDelete={onDelete}
+            onDeleteAll={onDeleteAll}
+          />
         </Route>
         <Route path="/">
           <HomePage />
