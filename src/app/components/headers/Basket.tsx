@@ -23,14 +23,14 @@ export default function Basket(props: BasketProps) {
   };
 
   return (
-    <IconButton
-      aria-label="cart"
-      onClick={handleClick}
+      <IconButton
+        aria-label="cart"
+        onClick={handleClick}
       className={"hover-line"}
-    >
-      <Badge badgeContent={cartItems.length} color="secondary">
+      >
+        <Badge badgeContent={cartItems.length} color="secondary">
         <img src={"/icons/shopping-cart.svg"} alt="Shopping Cart" />
-      </Badge>
-    </IconButton>
+        </Badge>
+      </IconButton>
   );
 }

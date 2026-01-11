@@ -72,7 +72,7 @@ export default function ChosenProduct(props: ChosenProductProps) {
       .getJewelleryShop()
       .then((data) => setJewelleryShop(data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [productId, setChosenProduct, setJewelleryShop]);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
     setTabValue(newValue);

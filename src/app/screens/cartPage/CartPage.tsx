@@ -8,7 +8,6 @@ import { useHistory, NavLink } from "react-router-dom";
 import { CartItem } from "../../../lib/types/search";
 import { serverApi } from "../../../lib/config";
 import { useGlobals } from "../../hooks/useGlobals";
-import OrderService from "../../services/OrderService";
 import { sweetErrorHandling } from "../../../lib/sweetAlert";
 import { Messages } from "../../../lib/config";
 import Newsletter from "../homePage/Newsletter";
@@ -24,7 +23,7 @@ interface CartPageProps {
 
 export default function CartPage(props: CartPageProps) {
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
-  const { authMember, setOrderBuilder } = useGlobals();
+  const { authMember } = useGlobals();
   const history = useHistory();
   const [couponCode, setCouponCode] = useState("");
 
@@ -40,21 +39,12 @@ export default function CartPage(props: CartPageProps) {
     0
   );
 
-  const proceedOrderHandler = async () => {
-    try {
-      if (!authMember) throw new Error(Messages.error2);
-
-      const order = new OrderService();
-      await order.createOrder(cartItems);
-
-      onDeleteAll();
-
-      setOrderBuilder(new Date());
-      history.push("/orders");
-    } catch (err) {
-      console.log(err);
-      sweetErrorHandling(err).then();
+  const proceedOrderHandler = () => {
+    if (!authMember) {
+      sweetErrorHandling(Messages.error2).then();
+      return;
     }
+    history.push("/checkout");
   };
 
   return (
@@ -71,7 +61,13 @@ export default function CartPage(props: CartPageProps) {
       <Container className="cart-main-container" maxWidth="lg">
         {cartItems.length === 0 ? (
           <Box className="cart-empty-state">
-            <Typography className="cart-empty-title">Your cart is empty.</Typography>
+            <Box className="cart-empty-icon-wrapper">
+              <img src="/icons/shopping-cart.svg" alt="Empty Cart" className="cart-empty-icon" />
+            </Box>
+            <Typography className="cart-empty-title">Your Shopping Cart is Empty</Typography>
+            <Typography className="cart-empty-subtitle">
+              Discover our exquisite collection of fine jewellery and add items to your cart
+            </Typography>
             <Button
               component={NavLink}
               to="/products"

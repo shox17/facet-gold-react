@@ -1,0 +1,779 @@
+/** Checkout Page - Facet & Gold Premium Style **/
+
+.checkout-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #FBF7F0;
+  padding-bottom: 80px;
+}
+
+/** Header Section **/
+.checkout-header-section {
+  width: 100%;
+  background: #FFFFFF;
+  padding: 80px 0 50px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.checkout-header-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #C8A45D 0%, rgba(200, 164, 93, 0.6) 50%, #C8A45D 100%);
+}
+
+.checkout-header-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(200, 164, 93, 0.2) 50%, transparent 100%);
+}
+
+.checkout-header-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.checkout-header-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif;
+  font-size: clamp(36px, 4vw, 48px);
+  font-weight: 700;
+  color: #1A1A1A;
+  letter-spacing: -0.4px;
+  line-height: 1.25;
+  margin-bottom: 18px;
+  position: relative;
+  display: inline-block;
+}
+
+.checkout-header-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0%, #C8A45D 50%, transparent 100%);
+  border-radius: 2px;
+}
+
+.checkout-breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Inter', 'Lato', sans-serif;
+  font-size: 15px;
+  color: #6B6B6B;
+  margin-top: 24px;
+  letter-spacing: 0.3px;
+}
+
+.checkout-breadcrumbs .breadcrumb-item {
+  font-family: 'Inter', 'Lato', sans-serif;
+  font-size: 15px;
+  color: #6B6B6B;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 400;
+}
+
+.checkout-breadcrumbs .breadcrumb-item:hover {
+  color: #C8A45D;
+}
+
+.checkout-breadcrumbs .breadcrumb-item.active {
+  color: #C8A45D;
+  font-weight: 600;
+  position: relative;
+}
+
+.checkout-breadcrumbs .breadcrumb-separator {
+  font-size: 18px;
+  color: #C8A45D;
+  opacity: 0.4;
+  margin: 0 2px;
+}
+
+/** Main Content **/
+.checkout-main-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.checkout-content-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  width: 100%;
+}
+
+/** Form Column **/
+.checkout-form-column {
+  width: 100%;
+}
+
+.checkout-form-card {
+  background: #FFFFFF !important;
+  border-radius: 24px;
+  border: 1px solid rgba(200, 164, 93, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.checkout-form-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.checkout-form-content {
+  padding: 48px !important;
+}
+
+.checkout-form-card:last-of-type {
+  margin-bottom: 0;
+}
+
+.checkout-form-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 40px;
+  letter-spacing: -0.3px;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.checkout-form-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #C8A45D 0%, rgba(200, 164, 93, 0.3) 100%);
+  border-radius: 2px;
+}
+
+.checkout-form-field {
+  margin-bottom: 24px !important;
+}
+
+/* Remove bottom margin from email field (divider comes after) */
+.checkout-email-field {
+  margin-bottom: 0 !important;
+}
+
+/* Remove bottom margin from delivery note field (last field) */
+.checkout-delivery-note-field {
+  margin-bottom: 0 !important;
+}
+
+/* Remove bottom margin from cardholder name field (last field in payment card) */
+.checkout-cardholder-field {
+  margin-bottom: 0 !important;
+}
+
+.checkout-form-field .MuiOutlinedInput-root {
+  border-radius: 14px;
+  background: #FFFFFF;
+  font-family: 'Inter', 'Lato', sans-serif;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 15px;
+}
+
+.checkout-form-field .MuiOutlinedInput-root fieldset {
+  border-color: rgba(0, 0, 0, 0.12);
+  border-width: 1.5px;
+  transition: all 0.3s ease;
+}
+
+.checkout-form-field .MuiOutlinedInput-root:hover fieldset {
+  border-color: rgba(200, 164, 93, 0.4);
+  box-shadow: 0 0 0 3px rgba(200, 164, 93, 0.05);
+}
+
+.checkout-form-field .MuiOutlinedInput-root.Mui-focused fieldset {
+  border-color: #C8A45D;
+  border-width: 2px;
+  box-shadow: 0 0 0 4px rgba(200, 164, 93, 0.1);
+}
+
+.checkout-form-field .MuiOutlinedInput-root input,
+.checkout-form-field .MuiOutlinedInput-root select {
+  padding: 14px 16px;
+  font-size: 15px;
+  color: #1A1A1A;
+}
+
+.checkout-form-field .MuiOutlinedInput-root select {
+  padding-right: 48px;
+  padding-left: 14px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23C8A45D' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 12px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.checkout-form-field .MuiOutlinedInput-root select:focus {
+  outline: none;
+}
+
+.checkout-form-field .MuiOutlinedInput-root select option {
+  padding: 12px;
+  font-size: 15px;
+  color: #1A1A1A;
+}
+
+.checkout-form-field .MuiOutlinedInput-root.MuiInputBase-root {
+  overflow: visible;
+}
+
+.checkout-form-field .MuiFormControl-root {
+  overflow: visible;
+}
+
+.checkout-form-field .MuiInputLabel-root {
+  font-family: 'Inter', 'Lato', sans-serif;
+  color: #6B6B6B;
+  font-size: 15px;
+  font-weight: 500;
+  transform: translate(14px, 16px) scale(1);
+  max-width: calc(100% - 60px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+  left: 0 !important;
+  right: auto !important;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+}
+
+.checkout-form-field .MuiInputLabel-root.Mui-focused {
+  color: #C8A45D;
+  font-weight: 600;
+  max-width: calc(100% - 60px);
+  left: 0 !important;
+  right: auto !important;
+}
+
+.checkout-form-field .MuiInputLabel-root.MuiInputLabel-shrink {
+  transform: translate(14px, -9px) scale(0.85);
+  background: #FFFFFF;
+  padding: 0 8px;
+  max-width: calc(100% - 24px);
+  left: 0 !important;
+  right: auto !important;
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+}
+
+.checkout-form-field .MuiInputLabel-root.Mui-focused.MuiInputLabel-shrink {
+  color: #C8A45D;
+  max-width: calc(100% - 24px);
+  left: 0 !important;
+  right: auto !important;
+}
+
+.checkout-form-field .MuiOutlinedInput-root.MuiInputBase-root {
+  position: relative;
+  overflow: visible;
+}
+
+.checkout-form-field .MuiOutlinedInput-root.MuiInputBase-root.has-value .MuiInputLabel-root {
+  transform: translate(14px, -9px) scale(0.85);
+  background: #FFFFFF;
+  padding: 0 8px;
+}
+
+/* Ensure select fields have proper label handling */
+.checkout-form-field .MuiOutlinedInput-root[class*="MuiInputBase-root"] {
+  overflow: visible;
+}
+
+.checkout-form-field .MuiFormControl-root {
+  overflow: visible;
+  position: relative;
+}
+
+/* Fix for select fields specifically - ensure labels don't overflow */
+.checkout-form-field .MuiOutlinedInput-root:has(select) {
+  position: relative;
+}
+
+.checkout-form-field .MuiOutlinedInput-root:has(select) .MuiInputLabel-root {
+  max-width: calc(100% - 60px) !important;
+  right: auto !important;
+  left: 0 !important;
+}
+
+.checkout-form-field .MuiOutlinedInput-root:has(select) .MuiInputLabel-root.Mui-focused {
+  max-width: calc(100% - 60px) !important;
+  right: auto !important;
+  left: 0 !important;
+}
+
+.checkout-form-field .MuiOutlinedInput-root:has(select) .MuiInputLabel-root.MuiInputLabel-shrink {
+  max-width: calc(100% - 24px) !important;
+  right: auto !important;
+  left: 0 !important;
+}
+
+.checkout-form-field .MuiOutlinedInput-root:has(select) .MuiInputLabel-root.Mui-focused.MuiInputLabel-shrink {
+  max-width: calc(100% - 24px) !important;
+  right: auto !important;
+  left: 0 !important;
+}
+
+/* Alternative approach for browsers that don't support :has() */
+.checkout-form-field[class*="select"] .MuiInputLabel-root,
+.checkout-form-field .MuiOutlinedInput-root select ~ .MuiInputLabel-root {
+  max-width: calc(100% - 60px) !important;
+  right: auto !important;
+  left: 0 !important;
+}
+
+/* Ensure label shrinks when select has a value */
+.checkout-form-field .MuiOutlinedInput-root:has(select:not([value=""])) .MuiInputLabel-root,
+.checkout-form-field .MuiOutlinedInput-root:has(select[value]:not([value=""])) .MuiInputLabel-root {
+  transform: translate(14px, -9px) scale(0.85);
+  background: #FFFFFF;
+  padding: 0 8px;
+  max-width: calc(100% - 40px);
+}
+
+.checkout-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 0;
+}
+
+.checkout-form-row .checkout-form-field {
+  margin-bottom: 24px !important;
+}
+
+.checkout-form-divider {
+  margin: 24px 0 24px 0 !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.checkout-delivery-address {
+  margin-bottom: 0;
+}
+
+.checkout-delivery-label {
+  font-family: 'Inter', 'Lato', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1A1A1A;
+  margin-bottom: 12px !important;
+}
+
+.checkout-delivery-address .MuiFormControlLabel-label {
+  font-family: 'Inter', 'Lato', sans-serif;
+  font-size: 15px;
+  color: #4A4A4A;
+}
+
+.checkout-delivery-address .MuiRadio-root {
+  color: #C8A45D;
+}
+
+.checkout-delivery-address .MuiRadio-root.Mui-checked {
+  color: #C8A45D;
+}
+
+.checkout-form-section-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 24px;
+  letter-spacing: -0.1px;
+}
+
+/** Payment Method Card **/
+.checkout-payment-card {
+  background: #FFFFFF !important;
+  border-radius: 24px;
+  border: 1px solid rgba(200, 164, 93, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  margin-top: 32px;
+}
+
+.checkout-payment-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.checkout-payment-content {
+  padding: 48px !important;
+}
+
+.checkout-payment-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 32px;
+  letter-spacing: -0.3px;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.checkout-payment-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #C8A45D 0%, rgba(200, 164, 93, 0.3) 100%);
+  border-radius: 2px;
+}
+
+.checkout-payment-icons-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 32px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(200, 164, 93, 0.03) 0%, rgba(200, 164, 93, 0.01) 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(200, 164, 93, 0.1);
+}
+
+.checkout-payment-icons-header img {
+  height: 48px;
+  width: auto;
+  opacity: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: grayscale(0%);
+  object-fit: contain;
+  display: block;
+}
+
+.checkout-payment-icons-header img:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: translateY(-3px) scale(1.08);
+}
+
+/** Summary Column **/
+.checkout-summary-column {
+  width: 100%;
+}
+
+.checkout-summary-card {
+  background: #FFFFFF !important;
+  border-radius: 24px;
+  border: 1px solid rgba(200, 164, 93, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  position: sticky;
+  top: 24px;
+  transition: box-shadow 0.3s ease;
+}
+
+.checkout-summary-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.checkout-summary-content {
+  padding: 40px !important;
+}
+
+.checkout-summary-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1A1A1A;
+  margin-bottom: 28px;
+  letter-spacing: -0.2px;
+  position: relative;
+  padding-bottom: 16px;
+}
+
+.checkout-summary-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #C8A45D 0%, rgba(200, 164, 93, 0.3) 100%);
+  border-radius: 2px;
+}
+
+.checkout-summary-divider {
+  margin: 20px 0 !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.checkout-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.checkout-summary-label {
+  font-family: 'Inter', 'Lato', sans-serif;
+  font-size: 15px;
+  color: #6B6B6B;
+  font-weight: 400;
+}
+
+.checkout-summary-value {
+  font-family: 'Inter', 'Lato', sans-serif;
+  font-size: 16px;
+  color: #1A1A1A;
+  font-weight: 500;
+}
+
+.checkout-summary-value.discount {
+  color: #C8A45D;
+}
+
+.checkout-summary-row.total-row {
+  margin-top: 12px;
+  padding-top: 24px;
+  border-top: 2px solid rgba(200, 164, 93, 0.25);
+  background: linear-gradient(90deg, rgba(200, 164, 93, 0.03) 0%, transparent 100%);
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-left: -16px;
+  margin-right: -16px;
+  border-radius: 12px;
+}
+
+.checkout-summary-row.total-row .checkout-summary-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+.checkout-summary-row.total-row .checkout-summary-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #C8A45D;
+}
+
+.checkout-place-order-btn {
+  margin-top: 40px !important;
+  background: linear-gradient(135deg, #C8A45D 0%, #B8944F 100%) !important;
+  color: #FFFFFF !important;
+  font-family: 'Inter', 'Lato', sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  text-transform: none !important;
+  padding: 16px 32px !important;
+  border-radius: 14px !important;
+  box-shadow: 0 6px 20px rgba(200, 164, 93, 0.35), 0 2px 8px rgba(200, 164, 93, 0.2) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.checkout-place-order-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.checkout-place-order-btn:hover::before {
+  left: 100%;
+}
+
+.checkout-place-order-btn:hover {
+  background: linear-gradient(135deg, #B8944F 0%, #A8843F 100%) !important;
+  box-shadow: 0 8px 24px rgba(200, 164, 93, 0.45), 0 4px 12px rgba(200, 164, 93, 0.3) !important;
+  transform: translateY(-3px);
+}
+
+.checkout-place-order-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(200, 164, 93, 0.4) !important;
+}
+
+/** Responsive Design **/
+@media (max-width: 968px) {
+  .checkout-content-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .checkout-summary-card {
+    position: static;
+  }
+
+  .checkout-form-content {
+    padding: 32px !important;
+  }
+
+  .checkout-payment-content {
+    padding: 32px !important;
+  }
+
+  .checkout-summary-content {
+    padding: 28px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .checkout-header-section {
+    padding: 64px 0 40px;
+  }
+  
+  .checkout-header-title {
+    font-size: clamp(36px, 4vw, 48px);
+    margin-bottom: 16px;
+  }
+  
+  .checkout-header-title::after {
+    width: 80px;
+    height: 3px;
+    bottom: -10px;
+  }
+  
+  .checkout-breadcrumbs {
+    font-size: clamp(15px, 1.6vw, 17px);
+    margin-top: 24px;
+  }
+
+  .checkout-main-container {
+    padding: 32px 16px;
+  }
+
+  .checkout-form-content {
+    padding: 24px !important;
+  }
+
+  .checkout-payment-content {
+    padding: 24px !important;
+  }
+
+  .checkout-payment-title {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  .checkout-payment-icons-header {
+    gap: 16px;
+    padding: 16px;
+    margin-bottom: 24px;
+  }
+
+  .checkout-payment-icons-header img {
+    height: 40px;
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+
+  .checkout-form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .checkout-form-row .checkout-form-field {
+    margin-bottom: 24px !important;
+  }
+
+  .checkout-form-title {
+    font-size: 24px;
+  }
+
+  .checkout-summary-title {
+    font-size: 22px;
+  }
+
+  .checkout-payment-card {
+    margin-top: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .checkout-header-section {
+    padding: 64px 0 40px;
+  }
+
+  .checkout-header-title {
+    font-size: clamp(36px, 4vw, 48px);
+    margin-bottom: 16px;
+  }
+
+  .checkout-header-title::after {
+    width: 80px;
+    height: 3px;
+    bottom: -10px;
+  }
+
+  .checkout-breadcrumbs {
+    font-size: clamp(15px, 1.6vw, 17px);
+    margin-top: 24px;
+  }
+
+  .checkout-form-content {
+    padding: 20px !important;
+  }
+
+  .checkout-payment-content {
+    padding: 20px !important;
+  }
+
+  .checkout-payment-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .checkout-payment-icons-header {
+    gap: 12px;
+    padding: 14px;
+    margin-bottom: 20px;
+  }
+
+  .checkout-payment-icons-header img {
+    height: 36px;
+    opacity: 1;
+    filter: grayscale(0%);
+  }
+
+  .checkout-payment-card {
+    margin-top: 20px;
+  }
+
+  .checkout-summary-content {
+    padding: 24px !important;
+  }
+}
