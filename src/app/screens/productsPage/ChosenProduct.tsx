@@ -159,10 +159,10 @@ export default function ChosenProduct(props: ChosenProductProps) {
           {/* Left Column - Image Gallery */}
           <Box className={"product-image-column"} sx={{ width: { xs: '100%', md: '50%' } }}>
             <Box className={"product-image-gallery"}>
-              <Swiper
-                loop={true}
-                spaceBetween={10}
-                navigation={true}
+          <Swiper
+            loop={true}
+            spaceBetween={10}
+            navigation={true}
                 thumbs={thumbsSwiper ? { swiper: thumbsSwiper } : undefined}
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="product-main-swiper"
@@ -186,18 +186,18 @@ export default function ChosenProduct(props: ChosenProductProps) {
                   slidesPerView={4}
                   freeMode={true}
                   watchSlidesProgress={true}
-                  modules={[FreeMode, Navigation, Thumbs]}
+            modules={[FreeMode, Navigation, Thumbs]}
                   className="product-thumbnails-swiper"
-                >
-                  {chosenProduct?.productImages.map((ele: string, index: number) => {
-                    const imagePath = `${serverApi}/${ele}`;
-                    return (
-                      <SwiperSlide key={index}>
+          >
+            {chosenProduct?.productImages.map((ele: string, index: number) => {
+              const imagePath = `${serverApi}/${ele}`;
+              return (
+                <SwiperSlide key={index}>
                         <img className="product-thumbnail" src={imagePath} alt={`Thumbnail ${index + 1}`} />
-                      </SwiperSlide>
-                    );
-                  })}
-                </Swiper>
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
               )}
             </Box>
           </Box>
@@ -248,7 +248,7 @@ export default function ChosenProduct(props: ChosenProductProps) {
 
               {/* Short Description - One Line Highlight */}
               <Typography className={"product-short-desc"}>
-                {chosenProduct?.productDesc
+              {chosenProduct?.productDesc
                   ? chosenProduct?.productDesc.length > 120
                     ? `${chosenProduct?.productDesc.substring(0, 120).trim()}...`
                     : chosenProduct?.productDesc

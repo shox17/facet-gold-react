@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Container, Box, Typography, TextField, Button, Card, CardContent, Divider, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Chip } from "@mui/material";
+import { Container, Box, Typography, TextField, Button, Card, CardContent, Divider, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Chip, Stack } from "@mui/material";
 import { useHistory, useLocation } from "react-router-dom";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { CartItem } from "../../../lib/types/search";
 import { useGlobals } from "../../hooks/useGlobals";
 import OrderService from "../../services/OrderService";
@@ -13,7 +14,9 @@ import { OrderStatus } from "../../../lib/enums/order.enum";
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import { retrievePausedOrders } from "../ordersPage/selector";
+import Newsletter from "../homePage/Newsletter";
 import "../../../css/checkout.css";
+import "../../../css/home.css";
 
 interface CheckoutPageProps {
   cartItems: CartItem[];
@@ -59,28 +62,71 @@ export default function CheckoutPage(props: CheckoutPageProps) {
   
   // Load order data if orderId is provided
   useEffect(() => {
-    if (orderId && pausedOrders) {
-      const order = pausedOrders.find((o: Order) => o._id === orderId);
-      if (order) {
-        setOrderData(order);
-        // Convert order items to cart items format
-        const items: CartItem[] = order.orderItems.map((item: OrderItem) => {
-          const product: Product = order.productData.find(
-            (p: Product) => p._id === item.productId
-          ) || order.productData[0];
-          return {
-            _id: item.productId,
-            quantity: item.itemQuantity,
-            price: item.itemPrice,
-            name: product?.productName || "Product",
-            image: product?.productImages[0] || "",
-          };
-        });
-        setOrderItems(items);
+    const loadOrderData = async () => {
+      if (orderId) {
+        // First try to find in pausedOrders
+        if (pausedOrders && pausedOrders.length > 0) {
+          const order = pausedOrders.find((o: Order) => o._id === orderId);
+          if (order) {
+            setOrderData(order);
+            // Convert order items to cart items format
+            const items: CartItem[] = order.orderItems.map((item: OrderItem) => {
+              const product: Product = order.productData.find(
+                (p: Product) => p._id === item.productId
+              ) || order.productData[0];
+              return {
+                _id: item.productId,
+                quantity: item.itemQuantity,
+                price: item.itemPrice,
+                name: product?.productName || "Product",
+                image: product?.productImages[0] || "",
+              };
+            });
+            setOrderItems(items);
+            return;
+          }
+        }
+        
+        // If not found in pausedOrders, fetch it directly
+        try {
+          const orderService = new OrderService();
+          const allOrders = await orderService.getMyOrders({
+            page: 1,
+            limit: 100,
+            orderStatus: OrderStatus.PAUSE,
+          });
+          const order = allOrders.find((o: Order) => o._id === orderId);
+          if (order) {
+            setOrderData(order);
+            // Convert order items to cart items format
+            const items: CartItem[] = order.orderItems.map((item: OrderItem) => {
+              const product: Product = order.productData.find(
+                (p: Product) => p._id === item.productId
+              ) || order.productData[0];
+              return {
+                _id: item.productId,
+                quantity: item.itemQuantity,
+                price: item.itemPrice,
+                name: product?.productName || "Product",
+                image: product?.productImages[0] || "",
+              };
+            });
+            setOrderItems(items);
+          } else {
+            // If order not found, fall back to cart items
+            setOrderItems(cartItems);
+          }
+        } catch (err) {
+          console.log("Error loading order:", err);
+          // Fall back to cart items on error
+          setOrderItems(cartItems);
+        }
+      } else {
+        setOrderItems(cartItems);
       }
-    } else {
-      setOrderItems(cartItems);
-    }
+    };
+
+    loadOrderData();
   }, [orderId, pausedOrders, cartItems]);
   
   // Pre-fill form with member data if available (overrides defaults)
@@ -125,22 +171,22 @@ export default function CheckoutPage(props: CheckoutPageProps) {
       // If orderId exists, update the order status to PROCESS
       if (orderId && orderData) {
         const order = new OrderService();
-        await order.updateOrder({
+        const updatedOrder = await order.updateOrder({
           orderId: orderId,
           orderStatus: OrderStatus.PROCESS,
         });
         setOrderBuilder(new Date());
         await sweetTopSuccessAlert("Order placed successfully!", 700);
-        history.push("/orders?tab=process");
+        history.push(`/order-success/${updatedOrder._id}`);
       } else {
         // Create new order from cart
         const order = new OrderService();
-        await order.createOrder(orderItems);
+        const createdOrder = await order.createOrder(orderItems);
         
         onDeleteAll();
         setOrderBuilder(new Date());
         await sweetTopSuccessAlert("Order placed successfully!", 700);
-        history.push("/orders?tab=process");
+        history.push(`/order-success/${createdOrder._id}`);
       }
     } catch (err) {
       console.log(err);
@@ -176,237 +222,245 @@ export default function CheckoutPage(props: CheckoutPageProps) {
           <Box className="checkout-form-column">
             <Card className="checkout-form-card" elevation={0}>
               <CardContent className="checkout-form-content">
-                <Typography className="checkout-form-title">Billing Details</Typography>
-                
-                <Box className="checkout-form-row">
-                  <TextField
-                    className="checkout-form-field"
-                    label="First Name *"
-                    placeholder="Ex. John"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                    fullWidth
-                  />
-                  <TextField
-                    className="checkout-form-field"
-                    label="Last Name *"
-                    placeholder="Ex. Doe"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                    fullWidth
-                  />
+                <Box className="checkout-section-header">
+                  <Typography className="checkout-form-title">Billing Details</Typography>
                 </Box>
                 
-                <TextField
-                  className="checkout-form-field"
-                  label="Company Name (Optional)"
-                  placeholder="Enter Company Name"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  fullWidth
-                />
-                
-                {/* Country and City in one row */}
-                <Box className="checkout-form-row">
-                  <TextField
-                    className="checkout-form-field"
-                    label="Country *"
-                    value={country}
-                    onChange={(e) => {
-                      setCountry(e.target.value);
-                      // Reset city when country changes
-                      setCity("");
-                    }}
-                    required
-                    fullWidth
-                    select
-                    SelectProps={{ native: true }}
-                  >
-                    <option value="KR">South Korea</option>
-                    <option value="US">United States</option>
-                    <option value="UK">United Kingdom</option>
-                    <option value="CA">Canada</option>
-                    <option value="AU">Australia</option>
-                    <option value="JP">Japan</option>
-                    <option value="CN">China</option>
-                    <option value="SG">Singapore</option>
-                  </TextField>
-                  <TextField
-                    className="checkout-form-field"
-                    label="City *"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    required
-                    fullWidth
-                    select
-                    SelectProps={{ native: true }}
-                  >
-                    <option value="">Select City</option>
-                    {country === "KR" ? (
-                      <>
-                        <option value="Seoul">Seoul</option>
-                        <option value="Busan">Busan</option>
-                        <option value="Incheon">Incheon</option>
-                        <option value="Daegu">Daegu</option>
-                        <option value="Daejeon">Daejeon</option>
-                        <option value="Gwangju">Gwangju</option>
-                        <option value="Ulsan">Ulsan</option>
-                        <option value="Suwon">Suwon</option>
-                        <option value="Seongnam">Seongnam</option>
-                        <option value="Goyang">Goyang</option>
-                        <option value="Yongin">Yongin</option>
-                        <option value="Changwon">Changwon</option>
-                        <option value="Sejong">Sejong</option>
-                        <option value="Jeju">Jeju</option>
-                      </>
-                    ) : country === "US" ? (
-                      <>
-                        <option value="New York">New York</option>
-                        <option value="Los Angeles">Los Angeles</option>
-                        <option value="Chicago">Chicago</option>
-                        <option value="Houston">Houston</option>
-                        <option value="Phoenix">Phoenix</option>
-                        <option value="Philadelphia">Philadelphia</option>
-                      </>
-                    ) : (
-                      <>
-                        <option value="New York">New York</option>
-                        <option value="Los Angeles">Los Angeles</option>
-                        <option value="Chicago">Chicago</option>
-                      </>
-                    )}
-                  </TextField>
-                </Box>
-                
-                {/* Street Address and Zip Code in one row */}
-                <Box className="checkout-form-row">
-                  <TextField
-                    className="checkout-form-field"
-                    label="Street Address *"
-                    placeholder="Enter Street Address"
-                    value={streetAddress}
-                    onChange={(e) => setStreetAddress(e.target.value)}
-                    required
-                    fullWidth
-                  />
-                  <TextField
-                    className="checkout-form-field"
-                    label="Zip Code *"
-                    placeholder="Enter Zip Code"
-                    value={zipCode}
-                    onChange={(e) => setZipCode(e.target.value)}
-                    required
-                    fullWidth
-                  />
-                </Box>
-                
-                <TextField
-                  className="checkout-form-field"
-                  label="Phone *"
-                  placeholder="Enter Phone Number"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  required
-                  fullWidth
-                />
-                
-                <TextField
-                  className="checkout-form-field"
-                  label="Email *"
-                  placeholder="Enter Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  fullWidth
-                  type="email"
-                />
-                
-                <Divider className="checkout-form-divider" />
-                
-                <FormControl component="fieldset" className="checkout-delivery-address">
-                  <FormLabel component="legend" className="checkout-delivery-label">
-                    Delivery Address *
-                  </FormLabel>
-                  <RadioGroup
-                    value={deliveryAddress}
-                    onChange={(e) => setDeliveryAddress(e.target.value)}
-                  >
-                    <FormControlLabel
-                      value="same"
-                      control={<Radio />}
-                      label="Same as shipping address"
+                <Stack spacing={2.5} className="checkout-form-stack">
+                  <Box className="checkout-form-row">
+                    <TextField
+                      className="checkout-form-field"
+                      label="First Name *"
+                      placeholder="Ex. John"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      required
+                      fullWidth
                     />
-                    <FormControlLabel
-                      value="different"
-                      control={<Radio />}
-                      label="Use a different billing address"
+                    <TextField
+                      className="checkout-form-field"
+                      label="Last Name *"
+                      placeholder="Ex. Doe"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      required
+                      fullWidth
                     />
-                  </RadioGroup>
-                </FormControl>
-                
-                <TextField
-                  className="checkout-form-field checkout-delivery-note-field"
-                  label="Delivery Note (Optional)"
-                  placeholder="Add delivery instructions..."
-                  value={deliveryNote}
-                  onChange={(e) => setDeliveryNote(e.target.value)}
-                  fullWidth
-                  multiline
-                  rows={3}
-                />
+                  </Box>
+                  
+                  <TextField
+                    className="checkout-form-field"
+                    label="Company Name (Optional)"
+                    placeholder="Enter Company Name"
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                    fullWidth
+                  />
+                  
+                  {/* Country and City in one row */}
+                  <Box className="checkout-form-row">
+                    <TextField
+                      className="checkout-form-field"
+                      label="Country *"
+                      value={country}
+                      onChange={(e) => {
+                        setCountry(e.target.value);
+                        // Reset city when country changes
+                        setCity("");
+                      }}
+                      required
+                      fullWidth
+                      select
+                      SelectProps={{ native: true }}
+                    >
+                      <option value="KR">South Korea</option>
+                      <option value="US">United States</option>
+                      <option value="UK">United Kingdom</option>
+                      <option value="CA">Canada</option>
+                      <option value="AU">Australia</option>
+                      <option value="JP">Japan</option>
+                      <option value="CN">China</option>
+                      <option value="SG">Singapore</option>
+                    </TextField>
+                    <TextField
+                      className="checkout-form-field"
+                      label="City *"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      required
+                      fullWidth
+                      select
+                      SelectProps={{ native: true }}
+                    >
+                      <option value="">Select City</option>
+                      {country === "KR" ? (
+                        <>
+                          <option value="Seoul">Seoul</option>
+                          <option value="Busan">Busan</option>
+                          <option value="Incheon">Incheon</option>
+                          <option value="Daegu">Daegu</option>
+                          <option value="Daejeon">Daejeon</option>
+                          <option value="Gwangju">Gwangju</option>
+                          <option value="Ulsan">Ulsan</option>
+                          <option value="Suwon">Suwon</option>
+                          <option value="Seongnam">Seongnam</option>
+                          <option value="Goyang">Goyang</option>
+                          <option value="Yongin">Yongin</option>
+                          <option value="Changwon">Changwon</option>
+                          <option value="Sejong">Sejong</option>
+                          <option value="Jeju">Jeju</option>
+                        </>
+                      ) : country === "US" ? (
+                        <>
+                          <option value="New York">New York</option>
+                          <option value="Los Angeles">Los Angeles</option>
+                          <option value="Chicago">Chicago</option>
+                          <option value="Houston">Houston</option>
+                          <option value="Phoenix">Phoenix</option>
+                          <option value="Philadelphia">Philadelphia</option>
+                        </>
+                      ) : (
+                        <>
+                          <option value="New York">New York</option>
+                          <option value="Los Angeles">Los Angeles</option>
+                          <option value="Chicago">Chicago</option>
+                        </>
+                      )}
+                    </TextField>
+                  </Box>
+                  
+                  {/* Street Address and Zip Code in one row */}
+                  <Box className="checkout-form-row">
+                    <TextField
+                      className="checkout-form-field"
+                      label="Street Address *"
+                      placeholder="Enter Street Address"
+                      value={streetAddress}
+                      onChange={(e) => setStreetAddress(e.target.value)}
+                      required
+                      fullWidth
+                    />
+                    <TextField
+                      className="checkout-form-field"
+                      label="Zip Code *"
+                      placeholder="Enter Zip Code"
+                      value={zipCode}
+                      onChange={(e) => setZipCode(e.target.value)}
+                      required
+                      fullWidth
+                    />
+                  </Box>
+                  
+                  <TextField
+                    className="checkout-form-field"
+                    label="Phone *"
+                    placeholder="Enter Phone Number"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                    fullWidth
+                  />
+                  
+                  <TextField
+                    className="checkout-form-field checkout-email-field"
+                    label="Email *"
+                    placeholder="Enter Email Address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    fullWidth
+                    type="email"
+                  />
+                  
+                  <Divider className="checkout-form-divider" />
+                  
+                  <FormControl component="fieldset" className="checkout-delivery-address" fullWidth>
+                    <FormLabel component="legend" className="checkout-delivery-label">
+                      Delivery Address *
+                    </FormLabel>
+                    <RadioGroup
+                      value={deliveryAddress}
+                      onChange={(e) => setDeliveryAddress(e.target.value)}
+                    >
+                      <FormControlLabel
+                        value="same"
+                        control={<Radio />}
+                        label="Same as shipping address"
+                      />
+                      <FormControlLabel
+                        value="different"
+                        control={<Radio />}
+                        label="Use a different billing address"
+                      />
+                    </RadioGroup>
+                  </FormControl>
+                  
+                  <TextField
+                    className="checkout-form-field checkout-delivery-note-field"
+                    label="Delivery Note (Optional)"
+                    placeholder="Add delivery instructions..."
+                    value={deliveryNote}
+                    onChange={(e) => setDeliveryNote(e.target.value)}
+                    fullWidth
+                    multiline
+                    rows={3}
+                  />
+                </Stack>
               </CardContent>
             </Card>
             
             {/* Payment Method Card */}
             <Card className="checkout-payment-card" elevation={0}>
               <CardContent className="checkout-payment-content">
-                <Typography className="checkout-payment-title">Payment Method</Typography>
-                
-                <Box className="checkout-payment-icons-header">
-                  <img src="/icons/western-card.svg" alt="Western Union" />
-                  <img src="/icons/master-card.svg" alt="Mastercard" />
-                  <img src="/icons/paypal-card.svg" alt="PayPal" />
-                  <img src="/icons/visa-card.svg" alt="Visa" />
+                <Box className="checkout-section-header">
+                  <Typography className="checkout-payment-title">Payment Method</Typography>
                 </Box>
                 
-                <TextField
-                  className="checkout-form-field"
-                  label="Card Number"
-                  placeholder="1234 5678 9012 3456"
-                  value={cardNumber}
-                  onChange={(e) => setCardNumber(e.target.value)}
-                  fullWidth
-                />
-                
-                <Box className="checkout-form-row">
+                <Stack spacing={2.5} className="checkout-form-stack">
+                  <Box className="checkout-payment-icons-header">
+                    <img src="/icons/western-card.svg" alt="Western Union" />
+                    <img src="/icons/master-card.svg" alt="Mastercard" />
+                    <img src="/icons/paypal-card.svg" alt="PayPal" />
+                    <img src="/icons/visa-card.svg" alt="Visa" />
+                  </Box>
+                  
                   <TextField
                     className="checkout-form-field"
-                    label="Expiry Date"
-                    placeholder="MM / YY"
-                    value={cardPeriod}
-                    onChange={(e) => setCardPeriod(e.target.value)}
+                    label="Card Number"
+                    placeholder="1234 5678 9012 3456"
+                    value={cardNumber}
+                    onChange={(e) => setCardNumber(e.target.value)}
                     fullWidth
                   />
+                  
+                  <Box className="checkout-form-row">
+                    <TextField
+                      className="checkout-form-field"
+                      label="Expiry Date"
+                      placeholder="MM / YY"
+                      value={cardPeriod}
+                      onChange={(e) => setCardPeriod(e.target.value)}
+                      fullWidth
+                    />
+                    <TextField
+                      className="checkout-form-field"
+                      label="CVV"
+                      placeholder="123"
+                      value={cardCVV}
+                      onChange={(e) => setCardCVV(e.target.value)}
+                      fullWidth
+                    />
+                  </Box>
+                  
                   <TextField
-                    className="checkout-form-field"
-                    label="CVV"
-                    placeholder="123"
-                    value={cardCVV}
-                    onChange={(e) => setCardCVV(e.target.value)}
+                    className="checkout-form-field checkout-cardholder-field"
+                    label="Cardholder Name"
+                    placeholder="John Doe"
+                    value={cardCreator}
+                    onChange={(e) => setCardCreator(e.target.value)}
                     fullWidth
                   />
-                </Box>
-                
-                <TextField
-                  className="checkout-form-field checkout-cardholder-field"
-                  label="Cardholder Name"
-                  placeholder="John Doe"
-                  value={cardCreator}
-                  onChange={(e) => setCardCreator(e.target.value)}
-                  fullWidth
-                />
+                </Stack>
               </CardContent>
             </Card>
           </Box>
@@ -462,15 +516,19 @@ export default function CheckoutPage(props: CheckoutPageProps) {
                   onClick={placeOrderHandler}
                   variant="contained"
                   className="checkout-place-order-btn"
+                  startIcon={<ShoppingCartIcon />}
                   fullWidth
                 >
-                  Place Order
+                  Proceed to Checkout
                 </Button>
               </CardContent>
             </Card>
           </Box>
         </Box>
       </Container>
+
+      {/* Newsletter Section */}
+      <Newsletter />
     </div>
   );
 }

@@ -10,6 +10,7 @@ import { serverApi } from "../../../lib/config";
 import { useGlobals } from "../../hooks/useGlobals";
 import { sweetErrorHandling } from "../../../lib/sweetAlert";
 import { Messages } from "../../../lib/config";
+import OrderService from "../../services/OrderService";
 import Newsletter from "../homePage/Newsletter";
 import "../../../css/cart.css";
 
@@ -23,7 +24,7 @@ interface CartPageProps {
 
 export default function CartPage(props: CartPageProps) {
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
-  const { authMember } = useGlobals();
+  const { authMember, setOrderBuilder } = useGlobals();
   const history = useHistory();
   const [couponCode, setCouponCode] = useState("");
 
@@ -39,12 +40,34 @@ export default function CartPage(props: CartPageProps) {
     0
   );
 
-  const proceedOrderHandler = () => {
-    if (!authMember) {
-      sweetErrorHandling(Messages.error2).then();
-      return;
+  const proceedOrderHandler = async () => {
+    try {
+      if (!authMember) {
+        sweetErrorHandling(Messages.error2).then();
+        return;
+      }
+      
+      if (cartItems.length === 0) {
+        sweetErrorHandling("Your cart is empty").then();
+        return;
+      }
+      
+      // Create a paused order first
+      const order = new OrderService();
+      const createdOrder = await order.createOrder(cartItems);
+      
+      // Clear the cart after order is created
+      onDeleteAll();
+      
+      // Refresh orders list
+      setOrderBuilder(new Date());
+      
+      // Navigate to checkout with the order ID
+      history.push(`/checkout?orderId=${createdOrder._id}`);
+    } catch (err) {
+      console.log(err);
+      sweetErrorHandling(err).then();
     }
-    history.push("/checkout");
   };
 
   return (
@@ -218,7 +241,7 @@ export default function CartPage(props: CartPageProps) {
                     startIcon={<ShoppingCartIcon />}
                     fullWidth
                   >
-                    Proceed to Checkout
+                    Place Order & Pay
                   </Button>
                 </CardContent>
               </Card>

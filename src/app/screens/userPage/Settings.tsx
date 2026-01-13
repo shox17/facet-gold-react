@@ -1,6 +1,6 @@
-import { Box } from "@mui/material";
-import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import Button from "@mui/material/Button";
+import { Box, TextField, Button, Stack, Avatar, Typography } from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import { useGlobals } from "../../hooks/useGlobals";
 import { useState } from "react";
 import { Messages, serverApi } from "../../../lib/config";
@@ -92,80 +92,90 @@ export function Settings() {
   };
 
   return (
-    <Box className={"settings"}>
-      <Box className={"member-media-frame"}>
-        <img src={memberImage} className={"mb-image"} />
-        <div className={"media-change-box"}>
-          <span>Upload image</span>
-          <p>JPG, JPEG, PNG formats only!</p>
-          <div className={"up-del-box"}>
-            <Button component="label" onChange={handleImageViewer}>
-              <CloudDownloadIcon />
-              <input type="file" hidden />
+    <Box className="personal-info-form">
+      {/* Profile Image Section */}
+      <Box className="personal-info-avatar-section">
+        <Box className="personal-info-avatar-wrapper">
+          <Avatar
+            src={memberImage}
+            alt="Profile"
+            className="personal-info-avatar"
+          />
+          <Box className="personal-info-avatar-overlay">
+            <Button
+              component="label"
+              className="personal-info-avatar-upload-btn"
+              onChange={handleImageViewer}
+            >
+              <PhotoCameraIcon className="personal-info-avatar-icon" />
+              <input type="file" accept="image/jpeg,image/jpg,image/png" hidden />
             </Button>
-          </div>
-        </div>
+          </Box>
+        </Box>
+        <Box className="personal-info-avatar-info">
+          <Typography className="personal-info-avatar-title">Profile Photo</Typography>
+          <Typography className="personal-info-avatar-subtitle">
+            JPG, JPEG, PNG formats only. Max size 5MB
+          </Typography>
+        </Box>
       </Box>
-      <Box className={"input-frame"}>
-        <div className={"long-input"}>
-          <label className={"spec-label"}>Username</label>
-          <input
-            className={"spec-input mb-nick"}
-            type="text"
-            placeholder={authMember?.memberNick}
-            value={memberUpdateInput.memberNick}
-            name="memberNick"
-            onChange={memberNickHandler}
-          />
-        </div>
-      </Box>
-      <Box className={"input-frame"}>
-        <div className={"short-input"}>
-          <label className={"spec-label"}>Phone</label>
-          <input
-            className={"spec-input mb-phone"}
-            type="text"
-            placeholder={authMember?.memberPhone ?? "no phone"}
-            value={memberUpdateInput.memberPhone}
-            name="memberPhone"
+
+      {/* Form Fields */}
+      <Stack spacing={2.5} className="personal-info-form-fields">
+        <TextField
+          label="Username *"
+          placeholder="Enter your username"
+          value={memberUpdateInput.memberNick || ""}
+          onChange={memberNickHandler}
+          fullWidth
+          required
+          className="personal-info-field"
+        />
+
+        <Box className="personal-info-form-row">
+          <TextField
+            label="Phone *"
+            placeholder="Enter your phone number"
+            value={memberUpdateInput.memberPhone || ""}
             onChange={memberPhoneHandler}
+            fullWidth
+            required
+            className="personal-info-field"
           />
-        </div>
-        <div className={"short-input"}>
-          <label className={"spec-label"}>Address</label>
-          <input
-            className={"spec-input  mb-address"}
-            type="text"
-            placeholder={
-              authMember?.memberAddress
-                ? authMember.memberAddress
-                : "no address"
-            }
-            value={memberUpdateInput.memberAddress}
-            name="memberAddress"
+          <TextField
+            label="Address *"
+            placeholder="Enter your address"
+            value={memberUpdateInput.memberAddress || ""}
             onChange={memberAddressHandler}
+            fullWidth
+            required
+            className="personal-info-field"
           />
-        </div>
-      </Box>
-      <Box className={"input-frame"}>
-        <div className={"long-input"}>
-          <label className={"spec-label"}>Description</label>
-          <textarea
-            className={"spec-textarea mb-description"}
-            placeholder={
-              authMember?.memberDesc ? authMember.memberDesc : "no description"
-            }
-            value={memberUpdateInput.memberDesc}
-            name="memberDesc"
-            onChange={memberDescriptionHandler}
-          />
-        </div>
-      </Box>
-      <Box className={"save-box"}>
-        <Button variant={"contained"} onClick={handleSubmitButton}>
-          Save
-        </Button>
-      </Box>
+        </Box>
+
+        <TextField
+          label="Description *"
+          placeholder="Tell us about yourself..."
+          value={memberUpdateInput.memberDesc || ""}
+          onChange={memberDescriptionHandler}
+          fullWidth
+          multiline
+          rows={4}
+          required
+          className="personal-info-field"
+        />
+
+        <Box className="personal-info-save-section">
+          <Button
+            variant="contained"
+            onClick={handleSubmitButton}
+            className="personal-info-save-btn"
+            fullWidth
+          >
+            Save Changes
+          </Button>
+        </Box>
+      </Stack>
     </Box>
   );
 }

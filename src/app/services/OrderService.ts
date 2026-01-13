@@ -61,5 +61,24 @@ class OrderService {
       throw err;
     }
   }
+
+  public async getOrder(orderId: string): Promise<Order | null> {
+    try {
+      // Fetch from all order statuses to find the order
+      const allStatuses = await Promise.all([
+        this.getMyOrders({ page: 1, limit: 100, orderStatus: "PAUSE" as any }),
+        this.getMyOrders({ page: 1, limit: 100, orderStatus: "PROCESS" as any }),
+        this.getMyOrders({ page: 1, limit: 100, orderStatus: "FINISH" as any }),
+      ]);
+      
+      const allOrders = allStatuses.flat();
+      const order = allOrders.find((o: Order) => o._id === orderId);
+      
+      return order || null;
+    } catch (err) {
+      console.log("Error. getOrder:", err);
+      return null;
+    }
+  }
 }
 export default OrderService;

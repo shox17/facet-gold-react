@@ -12,7 +12,7 @@ import { T } from "../../../lib/types/common";
 import { useGlobals } from "../../hooks/useGlobals";
 import { OrderStatus } from "../../../lib/enums/order.enum";
 import OrderService from "../../services/OrderService";
-import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { sweetErrorHandling, premiumDeleteConfirm, premiumPaymentConfirm } from "../../../lib/sweetAlert";
 
 /** REDUX SLICE & SELECTOR */
 const pausedOrdersRetriever = createSelector(
@@ -40,8 +40,8 @@ export default function PausedOrders(props: PausedOrdersProps) {
         orderStatus: OrderStatus.DELETE,
       };
 
-      const confirmation = window.confirm("Do you want to delete the order?");
-      if (confirmation) {
+      const result = await premiumDeleteConfirm("this order");
+      if (result.isConfirmed) {
         const order = new OrderService();
         await order.updateOrder(input);
         setOrderBuilder(new Date());
@@ -63,10 +63,10 @@ export default function PausedOrders(props: PausedOrdersProps) {
         orderStatus: OrderStatus.PROCESS,
       };
 
-      const confirmation = window.confirm(
-        "Do you want to proceed with payment?"
+      const result = await premiumPaymentConfirm(
+        "Do you want to proceed with payment for this order?"
       );
-      if (confirmation) {
+      if (result.isConfirmed) {
         const order = new OrderService();
         await order.updateOrder(input);
         setValue("2");

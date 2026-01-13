@@ -1,15 +1,34 @@
 .order-page {
 	width: 100%;
 	height: auto;
-	background: #f8f8ff;
+	background: #FAF6EF;
 	display: flex;
+	min-height: 100vh;
+	padding-bottom: 80px;
 }
 
 .order-page .order-container {
 	margin-top: 50px;
 	margin-bottom: 50px;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
+	max-width: 1200px;
+	width: 100%;
+}
+
+.order-page .order-header {
+	margin-bottom: 32px;
+	text-align: center;
+}
+
+.order-page .order-page-title {
+	font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif !important;
+	font-size: clamp(36px, 4vw, 48px) !important;
+	font-weight: 700 !important;
+	color: #1A1A1A !important;
+	letter-spacing: -0.4px !important;
+	line-height: 1.25 !important;
+	margin-bottom: 18px !important;
 }
 
 .order-page .order-left {
@@ -163,18 +182,56 @@
 	min-width: 160px;
 }
 
-.order-page .order-left .order-nav-frame {
+.order-page .order-nav-frame {
 	width: 100%;
-	height: 60px;
+	margin-bottom: 32px;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	border-bottom: 1px solid #f8f8ff;
+	border-bottom: 1px solid rgba(233, 221, 200, 0.3);
 }
 
-.order-page .order-left .order-nav-frame .table-list {
+.order-page .order-nav-links {
 	display: flex;
-	justify-content: space-between;
+	gap: 8px;
+	justify-content: center;
+	align-items: center;
+}
+
+.order-page .order-nav-link {
+	font-family: 'Inter', 'Lato', sans-serif !important;
+	font-size: 15px !important;
+	font-weight: 500 !important;
+	color: #6B6B6B !important;
+	text-decoration: none !important;
+	padding: 12px 24px !important;
+	border-radius: 12px 12px 0 0 !important;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+	position: relative !important;
+	letter-spacing: 0.3px !important;
+	text-transform: uppercase !important;
+}
+
+.order-page .order-nav-link:hover {
+	color: #1A1A1A !important;
+	background: rgba(200, 164, 93, 0.05) !important;
+}
+
+.order-page .order-nav-link.active {
+	color: #C8A45D !important;
+	font-weight: 600 !important;
+	background: rgba(200, 164, 93, 0.08) !important;
+}
+
+.order-page .order-nav-link.active::after {
+	content: '';
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: linear-gradient(90deg, #C8A45D 0%, #B8944F 100%);
+	border-radius: 2px 2px 0 0;
 }
 
 .order-page .css-1gsv261 {
@@ -186,8 +243,9 @@
 }
 
 .order-page .order-main-content {
-	width: 855px;
+	width: 100%;
 	height: auto;
+	max-width: 1200px;
 }
 
 .order-page .css-19kzrtu {

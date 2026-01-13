@@ -1,0 +1,364 @@
+/** Premium Alert Styling for Facet & Gold **/
+/* Note: SweetAlert2 base styles should already be loaded via npm package */
+
+/* Container & Backdrop */
+.premium-swal-container {
+  font-family: 'Inter', 'Lato', 'Playfair Display', sans-serif;
+}
+
+.premium-swal-backdrop-show {
+  background: rgba(26, 26, 26, 0.4) !important;
+  backdrop-filter: blur(4px);
+  animation: premiumFadeIn 0.3s ease;
+}
+
+.premium-swal-backdrop-hide {
+  animation: premiumFadeOut 0.2s ease;
+}
+
+/* Popup Container */
+.premium-swal-popup {
+  background: #FAF6EF !important;
+  border-radius: 18px !important;
+  border: 1px solid #E9DDC8 !important;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+  padding: 0 !important;
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  overflow: hidden;
+}
+
+.premium-swal-show {
+  animation: premiumSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.premium-swal-hide {
+  animation: premiumSlideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Title */
+.premium-swal-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif !important;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  color: #1A1A1A !important;
+  letter-spacing: -0.3px !important;
+  line-height: 1.3 !important;
+  margin: 0 0 12px 0 !important;
+  padding: 0 !important;
+}
+
+/* HTML Container / Text */
+.premium-swal-html {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  color: #6B6B6B !important;
+  line-height: 1.6 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Icon Styling */
+.premium-swal-icon {
+  width: 64px !important;
+  height: 64px !important;
+  margin: 0 auto 20px !important;
+  border: none !important;
+}
+
+.premium-swal-icon.swal2-success {
+  border-color: #C8A45D !important;
+}
+
+.premium-swal-icon.swal2-success [class^=swal2-success-line] {
+  background-color: #C8A45D !important;
+}
+
+.premium-swal-icon.swal2-success .swal2-success-ring {
+  border-color: rgba(200, 164, 93, 0.3) !important;
+}
+
+.premium-swal-icon.swal2-error {
+  border-color: #A67C7C !important;
+  color: #A67C7C !important;
+}
+
+.premium-swal-icon.swal2-error [class^=swal2-x-mark-line] {
+  background-color: #A67C7C !important;
+}
+
+.premium-swal-icon.swal2-warning {
+  border-color: #C8A45D !important;
+  color: #C8A45D !important;
+}
+
+.premium-swal-icon.swal2-warning [class^=swal2-warning] {
+  border-color: #C8A45D !important;
+  color: #C8A45D !important;
+}
+
+/* Buttons */
+.premium-swal-actions {
+  margin: 36px 0 0 0 !important;
+  gap: 16px !important;
+  display: flex !important;
+  justify-content: center !important;
+  flex-direction: row-reverse !important;
+  align-items: center !important;
+}
+
+/* Premium Confirm Button (Primary Action) */
+.premium-swal-confirm-btn {
+  background: linear-gradient(135deg, #C8A45D 0%, #B8944F 100%) !important;
+  color: #FFFFFF !important;
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  padding: 16px 40px !important;
+  border-radius: 16px !important;
+  border: none !important;
+  box-shadow: 0 6px 24px rgba(200, 164, 93, 0.35), 0 2px 8px rgba(200, 164, 93, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  letter-spacing: 0.4px !important;
+  min-width: 140px !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  position: relative !important;
+  overflow: hidden !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1.5 !important;
+}
+
+.premium-swal-confirm-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+.premium-swal-confirm-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.premium-swal-confirm-btn:hover::before {
+  left: 100%;
+}
+
+.premium-swal-confirm-btn:hover::after {
+  opacity: 1;
+}
+
+.premium-swal-confirm-btn:hover {
+  background: linear-gradient(135deg, #B8944F 0%, #A8843F 100%) !important;
+  box-shadow: 0 8px 32px rgba(200, 164, 93, 0.45), 0 4px 12px rgba(200, 164, 93, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-3px) scale(1.02) !important;
+}
+
+.premium-swal-confirm-btn:active {
+  transform: translateY(-1px) scale(1) !important;
+  box-shadow: 0 4px 16px rgba(200, 164, 93, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+.premium-swal-confirm-btn:focus {
+  outline: none !important;
+  box-shadow: 0 6px 24px rgba(200, 164, 93, 0.35), 0 0 0 4px rgba(200, 164, 93, 0.2) !important;
+}
+
+.premium-swal-confirm-btn > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Premium Cancel Button (Secondary Action) */
+.premium-swal-cancel-btn {
+  background: #FFFFFF !important;
+  color: #6B6B6B !important;
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  padding: 16px 40px !important;
+  border-radius: 16px !important;
+  border: 2px solid #E9DDC8 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  letter-spacing: 0.3px !important;
+  min-width: 140px !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1.5 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.premium-swal-cancel-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(200, 164, 93, 0.05) 0%, rgba(200, 164, 93, 0.02) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.premium-swal-cancel-btn:hover::before {
+  opacity: 1;
+}
+
+.premium-swal-cancel-btn:hover {
+  background: #FAF6EF !important;
+  border-color: #C8A45D !important;
+  color: #1A1A1A !important;
+  box-shadow: 0 4px 16px rgba(200, 164, 93, 0.15), 0 2px 8px rgba(200, 164, 93, 0.1) !important;
+  transform: translateY(-2px) scale(1.01) !important;
+}
+
+.premium-swal-cancel-btn:active {
+  transform: translateY(0) scale(1) !important;
+  background: rgba(250, 246, 239, 0.8) !important;
+  box-shadow: 0 2px 8px rgba(200, 164, 93, 0.2) !important;
+}
+
+.premium-swal-cancel-btn:focus {
+  outline: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 0 0 3px rgba(200, 164, 93, 0.15) !important;
+  border-color: #C8A45D !important;
+}
+
+.premium-swal-cancel-btn > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* Toast-specific styles */
+.swal2-toast.premium-swal-popup {
+  border-radius: 14px !important;
+  padding: 0 !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+.swal2-toast .premium-swal-title {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  margin: 0 !important;
+}
+
+.swal2-toast .premium-swal-icon {
+  width: 40px !important;
+  height: 40px !important;
+  margin: 0 12px 0 0 !important;
+}
+
+/* Timer Progress Bar */
+.swal2-timer-progress-bar {
+  background: linear-gradient(90deg, #C8A45D 0%, #B8944F 100%) !important;
+  height: 3px !important;
+}
+
+/* Animations */
+@keyframes premiumSlideIn {
+  0% {
+    transform: translateY(-20px) scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes premiumSlideOut {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10px) scale(0.95);
+    opacity: 0;
+  }
+}
+
+@keyframes premiumFadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes premiumFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .premium-swal-popup {
+    width: 90% !important;
+    max-width: 400px !important;
+    padding: 24px 20px !important;
+  }
+
+  .premium-swal-title {
+    font-size: 24px !important;
+  }
+
+  .premium-swal-html {
+    font-size: 15px !important;
+  }
+
+  .premium-swal-actions {
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 12px !important;
+  }
+
+  .premium-swal-confirm-btn,
+  .premium-swal-cancel-btn {
+    width: 100% !important;
+    min-width: unset !important;
+    padding: 15px 32px !important;
+    font-size: 15px !important;
+  }
+
+  .premium-swal-confirm-btn:hover,
+  .premium-swal-cancel-btn:hover {
+    transform: translateY(-2px) scale(1) !important;
+  }
+}
+
+/* Override SweetAlert2 default styles */
+.swal2-popup {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+}
+
+.swal2-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif !important;
+}

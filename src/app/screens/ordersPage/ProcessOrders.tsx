@@ -13,7 +13,7 @@ import { useGlobals } from "../../hooks/useGlobals";
 import { T } from "../../../lib/types/common";
 import { OrderStatus } from "../../../lib/enums/order.enum";
 import OrderService from "../../services/OrderService";
-import { sweetErrorHandling } from "../../../lib/sweetAlert";
+import { sweetErrorHandling, premiumConfirmAlert } from "../../../lib/sweetAlert";
 
 /** REDUX SLICE & SELECTOR */
 const processOrdersRetriever = createSelector(
@@ -42,8 +42,13 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
         orderStatus: OrderStatus.FINISH,
       };
 
-      const confirmation = window.confirm("Have you received your order?");
-      if (confirmation) {
+      const result = await premiumConfirmAlert(
+        "Confirm Receipt",
+        "Have you received your order?",
+        "Yes, Received",
+        "Cancel"
+      );
+      if (result.isConfirmed) {
         const order = new OrderService();
         await order.updateOrder(input);
         setValue("3");

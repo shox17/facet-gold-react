@@ -2,9 +2,6 @@ import {
   Box,
   Button,
   Container,
-  ListItemIcon,
-  Menu,
-  MenuItem,
   Stack,
 } from "@mui/material";
 import { NavLink, useHistory } from "react-router-dom";
@@ -13,7 +10,6 @@ import React from "react";
 import { CartItem } from "../../../lib/types/search";
 import { useGlobals } from "../../hooks/useGlobals";
 import { serverApi } from "../../../lib/config";
-import { Logout } from "@mui/icons-material";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import AssignmentReturnIcon from "@mui/icons-material/AssignmentReturn";
@@ -27,10 +23,6 @@ interface HomeNavbarProps {
   onDeleteAll: () => void;
   setSignupOpen: (isOpen: boolean) => void;
   setLoginOpen: (isOpen: boolean) => void;
-  handleLogoutClick: (e: React.MouseEvent<HTMLElement>) => void;
-  anchorEl: HTMLElement | null;
-  handleCloseLogout: () => void;
-  handleLogoutRequest: () => void;
 }
 
 export default function HomeNavbar(props: HomeNavbarProps) {
@@ -42,10 +34,6 @@ export default function HomeNavbar(props: HomeNavbarProps) {
     onRemove,
     setSignupOpen,
     setLoginOpen,
-    handleLogoutClick,
-    anchorEl,
-    handleCloseLogout,
-    handleLogoutRequest,
   } = props;
   const { authMember } = useGlobals();
   const history = useHistory();
@@ -85,14 +73,6 @@ export default function HomeNavbar(props: HomeNavbarProps) {
               <Box className={"hover-line"}>
                 <NavLink to="/orders" activeClassName={"underline"}>
                   Orders
-                </NavLink>
-              </Box>
-            ) : null}
-
-            {authMember ? (
-              <Box className={"hover-line"}>
-                <NavLink to="/member-page" activeClassName={"underline"}>
-                  My Page
                 </NavLink>
               </Box>
             ) : null}
@@ -137,60 +117,10 @@ export default function HomeNavbar(props: HomeNavbarProps) {
                     : "/icons/default-user.svg"
                 }
                 alt={authMember?.memberNick || "User"}
-                onClick={handleLogoutClick}
+                onClick={() => history.push("/member-page")}
                 style={{ cursor: "pointer" }}
               />
             )}
-            <Menu
-              anchorEl={anchorEl}
-              id="account-menu"
-              className="user-menu"
-              open={Boolean(anchorEl)}
-              onClose={handleCloseLogout}
-              onClick={handleCloseLogout}
-              PaperProps={{
-                elevation: 0,
-                className: "user-menu-paper",
-                sx: {
-                  overflow: "visible",
-                  filter: "drop-shadow(0px 4px 16px rgba(0,0,0,0.12))",
-                  mt: 1.5,
-                  borderRadius: "12px",
-                  border: "1px solid rgba(201, 162, 77, 0.15)",
-                  backgroundColor: "#FAF9F7",
-                  minWidth: "160px",
-                  "& .MuiAvatar-root": {
-                    width: 32,
-                    height: 32,
-                    ml: -0.5,
-                    mr: 1,
-                  },
-                  "&:before": {
-                    content: '""',
-                    display: "block",
-                    position: "absolute",
-                    top: 0,
-                    right: 14,
-                    width: 10,
-                    height: 10,
-                    backgroundColor: "#FAF9F7",
-                    borderLeft: "1px solid rgba(201, 162, 77, 0.15)",
-                    borderTop: "1px solid rgba(201, 162, 77, 0.15)",
-                    transform: "translateY(-50%) rotate(45deg)",
-                    zIndex: 0,
-                  },
-                },
-              }}
-              transformOrigin={{ horizontal: "right", vertical: "top" }}
-              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-            >
-              <MenuItem onClick={handleLogoutRequest} className="logout-menu-item">
-                <ListItemIcon className="logout-icon-wrapper">
-                  <Logout fontSize="small" className="logout-icon" />
-                </ListItemIcon>
-                <span className="logout-text">Logout</span>
-              </MenuItem>
-            </Menu>
           </Stack>
         </Stack>
         <Stack className={"header-frame"}>
