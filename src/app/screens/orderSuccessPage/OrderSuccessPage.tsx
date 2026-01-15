@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Container, Box, Typography, Button, Card, CardContent, Divider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import DownloadIcon from "@mui/icons-material/Download";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import PaymentIcon from "@mui/icons-material/Payment";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { NavLink } from "react-router-dom";
 import OrderService from "../../services/OrderService";
 import { Order, OrderItem } from "../../../lib/types/order";
+import { OrderStatus } from "../../../lib/enums/order.enum";
 import { Product } from "../../../lib/types/product";
 import { serverApi } from "../../../lib/config";
 import { sweetErrorHandling, sweetTopSmallSuccessAlert } from "../../../lib/sweetAlert";
+import Newsletter from "../homePage/Newsletter";
 import "../../../css/orderSuccessPage.css";
 
 export default function OrderSuccessPage() {
-  const history = useHistory();
   const { orderId } = useParams<{ orderId: string }>();
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
@@ -62,6 +66,42 @@ export default function OrderSuccessPage() {
     // Mock payment method - in real app, this would come from order data
     return "Visa";
   };
+
+  // Get title and subtitle based on order status
+  const getOrderStatusInfo = () => {
+    switch (order?.orderStatus) {
+      case OrderStatus.PAUSE:
+        return {
+          title: "Your order is on hold",
+          subtitle: "Your order has been received and is currently paused.",
+          deliveryStatus: "Order Paused",
+          deliveryStatusClass: "paused",
+        };
+      case OrderStatus.PROCESS:
+        return {
+          title: "Your order is being processed!",
+          subtitle: "Thank you. Your order has been received and is being prepared for delivery.",
+          deliveryStatus: "Order Being Processed",
+          deliveryStatusClass: "processing",
+        };
+      case OrderStatus.FINISH:
+        return {
+          title: "Your order has been delivered!",
+          subtitle: "Thank you for your purchase. Your order has been successfully delivered.",
+          deliveryStatus: "Order Delivered",
+          deliveryStatusClass: "delivered",
+        };
+      default:
+        return {
+          title: "Your order is completed!",
+          subtitle: "Thank you. Your order has been received.",
+          deliveryStatus: "Order Being Processed",
+          deliveryStatusClass: "processing",
+        };
+    }
+  };
+
+  const statusInfo = getOrderStatusInfo();
 
   if (loading) {
     return (
@@ -115,15 +155,47 @@ export default function OrderSuccessPage() {
     <div className="order-success-page">
       <Container maxWidth="lg" className="order-success-container">
         {/* Success Header */}
-        <Box className="order-success-header">
-          <Box className="order-success-icon-wrapper">
-            <CheckCircleIcon className="order-success-icon" />
-          </Box>
-          <Typography className="order-success-title">Your order is completed!</Typography>
-          <Typography className="order-success-subtitle">
-            Thank you. Your order has been received.
-          </Typography>
-        </Box>
+        <Card className="order-success-header-card" elevation={0}>
+          <CardContent className="order-success-header-content">
+            <Box className="order-success-header">
+              <Box className="order-success-icon-wrapper">
+                <CheckCircleIcon className="order-success-icon" />
+              </Box>
+              <Typography className="order-success-title">{statusInfo.title}</Typography>
+              <Typography className="order-success-subtitle">
+                {statusInfo.subtitle}
+              </Typography>
+            </Box>
+          </CardContent>
+        </Card>
+
+        {/* Payment & Delivery Status */}
+        <Card className="order-success-status-card" elevation={0}>
+          <CardContent className="order-success-status-content">
+            <Box className="order-success-status-grid">
+              <Box className="order-success-status-item">
+                <Box className="order-success-status-icon-wrapper payment">
+                  <PaymentIcon className="order-success-status-icon" />
+                </Box>
+                <Box className="order-success-status-info">
+                  <Typography className="order-success-status-label">Payment Status</Typography>
+                  <Typography className="order-success-status-value completed">Payment Completed</Typography>
+                </Box>
+              </Box>
+              <Box className="order-success-status-item">
+                <Box className={`order-success-status-icon-wrapper delivery ${statusInfo.deliveryStatusClass}`}>
+                  <LocalShippingIcon className="order-success-status-icon" />
+                </Box>
+                <Box className="order-success-status-info">
+                  <Typography className="order-success-status-label">Delivery Status</Typography>
+                  <Typography className={`order-success-status-value ${statusInfo.deliveryStatusClass}`}>
+                    {statusInfo.deliveryStatus}
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+          </CardContent>
+        </Card>
 
         {/* Order Summary Bar */}
         <Card className="order-success-summary-card" elevation={0}>
@@ -255,7 +327,7 @@ export default function OrderSuccessPage() {
           </CardContent>
         </Card>
 
-        {/* CTA Button */}
+        {/* CTA Buttons */}
         <Box className="order-success-cta">
           <Button
             component={NavLink}
@@ -266,8 +338,20 @@ export default function OrderSuccessPage() {
           >
             Continue Shopping
           </Button>
+          <Button
+            component={NavLink}
+            to={`/orders/${orderId}/manage`}
+            variant="outlined"
+            className="order-success-track-btn"
+            startIcon={<AssignmentIcon />}
+          >
+            Track & Manage Order
+          </Button>
         </Box>
       </Container>
+
+      {/* Newsletter Section - Full Width */}
+      <Newsletter />
     </div>
   );
 }

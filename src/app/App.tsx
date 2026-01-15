@@ -8,6 +8,7 @@ import FinishedOrdersPage from "./screens/ordersPage/FinishedOrdersPage";
 import OrdersRedirect from "./screens/ordersPage/OrdersRedirect";
 import UserPage from "./screens/userPage";
 import OrderSuccessPage from "./screens/orderSuccessPage/OrderSuccessPage";
+import OrderManagePage from "./screens/orderManagePage/OrderManagePage";
 import CartPage from "./screens/cartPage/CartPage";
 import CheckoutPage from "./screens/checkoutPage/CheckoutPage";
 import HomeNavbar from "./components/headers/HomeNavbar";
@@ -96,6 +97,9 @@ function App() {
         </Route>
         <Route path="/order-success/:orderId">
           <OrderSuccessPage />
+        </Route>
+        <Route path="/orders/:orderId/manage">
+          <OrderManagePage />
         </Route>
         <Route path="/">
           <HomePage />

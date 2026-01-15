@@ -176,7 +176,7 @@ export default function CheckoutPage(props: CheckoutPageProps) {
           orderStatus: OrderStatus.PROCESS,
         });
         setOrderBuilder(new Date());
-        await sweetTopSuccessAlert("Order placed successfully!", 700);
+        await sweetTopSuccessAlert("Order payment processed successfully!", 700);
         history.push(`/order-success/${updatedOrder._id}`);
       } else {
         // Create new order from cart

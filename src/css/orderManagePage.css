@@ -1,0 +1,515 @@
+/** Premium Track & Manage Order Page - Facet & Gold **/
+
+.order-manage-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #F7F2E8;
+}
+
+/** Top Banner **/
+.order-manage-banner {
+  width: 100%;
+  background: linear-gradient(135deg, #F7F2E8 0%, #FBF7F0 100%);
+  padding: 60px 0 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.order-manage-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20,50 Q50,20 80,50 Q50,80 20,50' stroke='%23C9A24C' stroke-width='0.5' fill='none' opacity='0.1'/%3E%3C/svg%3E");
+  opacity: 0.15;
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+.order-manage-banner-container {
+  position: relative;
+  z-index: 1;
+}
+
+.order-manage-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  font-family: 'Inter', 'Lato', sans-serif;
+  font-size: 14px;
+}
+
+.breadcrumb-link {
+  color: #6B6B6B;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+  color: #C9A24C;
+}
+
+.breadcrumb-separator {
+  font-size: 16px !important;
+  color: #9A9A9A;
+}
+
+.breadcrumb-current {
+  color: #1E1E1E;
+  font-weight: 500;
+}
+
+.order-manage-banner-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif !important;
+  font-size: clamp(40px, 5vw, 56px) !important;
+  font-weight: 700 !important;
+  color: #1E1E1E !important;
+  margin-bottom: 32px !important;
+  letter-spacing: -0.5px !important;
+}
+
+.order-manage-banner-info {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.banner-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.banner-info-label {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  color: #6B6B6B !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+}
+
+.banner-info-value {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #1E1E1E !important;
+}
+
+.status-chip {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+}
+
+.status-chip.completed {
+  background: rgba(76, 175, 80, 0.1) !important;
+  color: #4CAF50 !important;
+  border: 1px solid rgba(76, 175, 80, 0.3) !important;
+}
+
+.status-chip.processing {
+  background: rgba(201, 162, 76, 0.1) !important;
+  color: #C9A24C !important;
+  border: 1px solid rgba(201, 162, 76, 0.3) !important;
+}
+
+.status-chip.delivered {
+  background: rgba(76, 175, 80, 0.1) !important;
+  color: #4CAF50 !important;
+  border: 1px solid rgba(76, 175, 80, 0.3) !important;
+}
+
+/** Main Container **/
+.order-manage-container {
+  padding: 48px 24px 80px !important;
+}
+
+.order-manage-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 32px;
+  align-items: start;
+}
+
+/** Cards **/
+.order-manage-card {
+  background: #FFFFFF !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(201, 162, 76, 0.15) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+  margin-bottom: 32px;
+}
+
+.order-manage-card:last-child {
+  margin-bottom: 0;
+}
+
+.order-manage-card-content {
+  padding: 32px !important;
+}
+
+.order-manage-card-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif !important;
+  font-size: clamp(24px, 2.5vw, 28px) !important;
+  font-weight: 700 !important;
+  color: #1E1E1E !important;
+  margin-bottom: 20px !important;
+}
+
+.order-manage-divider {
+  margin-bottom: 24px !important;
+  border-color: rgba(201, 162, 76, 0.2) !important;
+}
+
+/** Stepper **/
+.order-status-stepper {
+  padding: 0 !important;
+}
+
+.step-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(201, 162, 76, 0.1);
+  border: 2px solid rgba(201, 162, 76, 0.3);
+  color: #9A9A9A;
+  transition: all 0.3s ease;
+}
+
+.step-icon-wrapper.active {
+  background: linear-gradient(135deg, #C9A24C 0%, #B8944F 100%);
+  border-color: #C9A24C;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(201, 162, 76, 0.3);
+}
+
+.step-icon-wrapper svg {
+  font-size: 20px !important;
+}
+
+.step-label {
+  margin-left: 16px !important;
+}
+
+.step-title {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #1E1E1E !important;
+  margin-bottom: 4px !important;
+}
+
+.step-description {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: #6B6B6B !important;
+  line-height: 1.5 !important;
+}
+
+/** Shipment Details **/
+.shipment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.shipment-detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(201, 162, 76, 0.1);
+}
+
+.shipment-detail-item:last-child {
+  border-bottom: none;
+}
+
+.shipment-label {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #6B6B6B !important;
+}
+
+.shipment-value {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #1E1E1E !important;
+}
+
+/** Products List **/
+.order-products-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.order-product-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(201, 162, 76, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(201, 162, 76, 0.1);
+}
+
+.order-product-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(201, 162, 76, 0.15);
+}
+
+.order-product-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.order-product-name {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #1E1E1E !important;
+}
+
+.order-product-category {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #6B6B6B !important;
+  text-transform: capitalize;
+}
+
+.order-product-quantity {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #9A9A9A !important;
+}
+
+.order-product-price {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  color: #C9A24C !important;
+}
+
+/** Totals **/
+.order-totals {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.order-totals-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-totals-label {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  color: #6B6B6B !important;
+}
+
+.order-totals-value {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #1E1E1E !important;
+}
+
+.total-row {
+  padding-top: 16px;
+  border-top: 2px solid rgba(201, 162, 76, 0.2);
+}
+
+.total-label {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: #1E1E1E !important;
+}
+
+.total-value {
+  font-size: 28px !important;
+  font-weight: 700 !important;
+  color: #C9A24C !important;
+}
+
+/** Manage Actions **/
+.manage-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.manage-action-btn {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  padding: 14px 24px !important;
+  border-radius: 12px !important;
+  border: 2px solid rgba(201, 162, 76, 0.3) !important;
+  color: #1E1E1E !important;
+  background: #FFFFFF !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.manage-action-btn:hover {
+  background: rgba(201, 162, 76, 0.05) !important;
+  border-color: #C9A24C !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(201, 162, 76, 0.2);
+}
+
+.manage-action-btn.primary {
+  background: linear-gradient(135deg, #C9A24C 0%, #B8944F 100%) !important;
+  color: #FFFFFF !important;
+  border-color: #C9A24C !important;
+}
+
+.manage-action-btn.primary:hover {
+  background: linear-gradient(135deg, #B8944F 0%, #A8843F 100%) !important;
+  box-shadow: 0 6px 20px rgba(201, 162, 76, 0.4);
+}
+
+.manage-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/** Loading & Empty States **/
+.order-manage-loading,
+.order-manage-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 160px 24px;
+  text-align: center;
+  min-height: 60vh;
+}
+
+.order-manage-empty-icon {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 48px;
+  background: linear-gradient(135deg, rgba(201, 162, 76, 0.1) 0%, rgba(201, 162, 76, 0.04) 100%);
+  border-radius: 50%;
+  border: 3px solid rgba(201, 162, 76, 0.2);
+  color: #C9A24C;
+}
+
+.order-manage-empty-icon svg {
+  font-size: 64px !important;
+}
+
+.order-manage-empty-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif !important;
+  font-size: clamp(36px, 4vw, 48px) !important;
+  font-weight: 700 !important;
+  color: #1E1E1E !important;
+  margin-bottom: 20px !important;
+}
+
+.order-manage-empty-subtitle {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: clamp(16px, 1.8vw, 18px) !important;
+  color: #6B6B6B !important;
+  margin-bottom: 48px !important;
+  max-width: 520px;
+}
+
+.order-manage-empty-btn {
+  background: linear-gradient(135deg, #C9A24C 0%, #B8944F 100%) !important;
+  color: #FFFFFF !important;
+  padding: 18px 48px !important;
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  border-radius: 14px !important;
+  box-shadow: 0 6px 20px rgba(201, 162, 76, 0.3) !important;
+}
+
+.order-manage-empty-btn:hover {
+  background: linear-gradient(135deg, #B8944F 0%, #A8843F 100%) !important;
+  transform: translateY(-2px);
+}
+
+/** Responsive Design **/
+@media (max-width: 1024px) {
+  .order-manage-main-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .order-manage-right-column {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .order-manage-banner {
+    padding: 40px 0 32px;
+  }
+
+  .order-manage-banner-info {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .order-manage-container {
+    padding: 32px 16px 60px !important;
+  }
+
+  .order-manage-card-content {
+    padding: 24px !important;
+  }
+
+  .order-manage-main-grid {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .order-manage-banner-title {
+    font-size: clamp(32px, 5vw, 42px) !important;
+    margin-bottom: 24px !important;
+  }
+
+  .order-product-item {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .order-product-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .manage-action-btn {
+    padding: 12px 20px !important;
+    font-size: 14px !important;
+  }
+}
