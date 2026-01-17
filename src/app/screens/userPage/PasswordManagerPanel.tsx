@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, CardContent, Typography, TextField, Button } from "@mui/material";
+import { Box, Card, CardContent, Typography, TextField, Button, Stack } from "@mui/material";
 import { useState } from "react";
 import { T } from "../../../lib/types/common";
 
@@ -18,45 +18,50 @@ export default function PasswordManagerPanel() {
   };
 
   return (
-    <Card className="account-panel-card" elevation={0}>
-      <CardContent className="account-panel-content">
+    <Card className="checkout-form-card" elevation={0}>
+      <CardContent className="checkout-form-content">
         <Typography className="account-panel-title">Password Manager</Typography>
-        <Box className="account-panel-body">
+        
+        <Stack spacing={2.5} className="checkout-form-stack">
           <TextField
-            label="Current Password"
+            label="Current Password *"
             type="password"
             placeholder="Enter current password"
             value={currentPassword}
             onChange={handleCurrentPasswordChange}
             fullWidth
-            className="account-form-field"
+            className="checkout-form-field"
+            required
           />
           <TextField
-            label="New Password"
+            label="New Password *"
             type="password"
             placeholder="Enter new password"
             value={newPassword}
             onChange={handleNewPasswordChange}
             fullWidth
-            className="account-form-field"
+            className="checkout-form-field"
+            required
           />
           <TextField
-            label="Confirm New Password"
+            label="Confirm New Password *"
             type="password"
             placeholder="Confirm new password"
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             fullWidth
-            className="account-form-field"
+            className="checkout-form-field"
+            required
           />
           <Button
             variant="contained"
-            className="account-panel-save-btn"
+            className="checkout-place-order-btn"
             onClick={handleChangePassword}
+            fullWidth
           >
             Change Password
           </Button>
-        </Box>
+        </Stack>
       </CardContent>
     </Card>
   );

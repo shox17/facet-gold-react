@@ -70,14 +70,14 @@ export default function Footer() {
               <Link to="/" className="footer-link">
                 About Us
               </Link>
-              <Link to="/help" className="footer-link">
-                Blog
+              <Link to="/products" className="footer-link">
+                Products
               </Link>
-              <Link to="/help" className="footer-link">
+              <Link to="/contact" className="footer-link">
                 Contact Us
               </Link>
               <Link to="/help" className="footer-link">
-                Career
+                Help
               </Link>
             </Box>
           </div>
@@ -88,11 +88,11 @@ export default function Footer() {
               <Link to="/member-page" className="footer-link">
                 My Account
               </Link>
-              <Link to="/orders" className="footer-link">
-                Track Your Order
+              <Link to="/member-page" className="footer-link">
+                My Orders
               </Link>
               <Link to="/help" className="footer-link">
-                Return
+                Returns & Exchanges
               </Link>
               <Link to="/help" className="footer-link">
                 FAQ
@@ -104,10 +104,10 @@ export default function Footer() {
             <Box className="footer-column-title">Our Information</Box>
             <Box className="footer-link-list">
               <Link to="/help" className="footer-link">
-                Privacy
+                Privacy Policy
               </Link>
               <Link to="/help" className="footer-link">
-                User Terms & Condition
+                Terms & Conditions
               </Link>
               <Link to="/help" className="footer-link">
                 Return Policy
@@ -121,15 +121,18 @@ export default function Footer() {
             <Box className="footer-contact-list">
               <Box className="footer-contact-item">
                 <PhoneIcon className="contact-icon" />
-                <span>+971 4 554 7777</span>
+                <span>+82-2-1234-5678</span>
               </Box>
               <Box className="footer-contact-item">
                 <EmailIcon className="contact-icon" />
-                <span>info@facetandgold.com</span>
+                <span>contact@facetandgold.com</span>
               </Box>
               <Box className="footer-contact-item">
                 <LocationOnIcon className="contact-icon" />
-                <span>Downtown, Dubai, UAE</span>
+                <Box component="span" sx={{ display: 'flex', flexDirection: 'column' }}>
+                  <span>123 Gangnam-daero, Gangnam-gu</span>
+                  <span>Seoul, South Korea 06000</span>
+                </Box>
               </Box>
             </Box>
           </div>

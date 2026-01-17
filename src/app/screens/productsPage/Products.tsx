@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Box, Button, Stack, Select, MenuItem, FormControl } from "@mui/material";
+import { Box, Button, Stack, Select, MenuItem, FormControl, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
@@ -13,6 +13,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import ScheduleIcon from "@mui/icons-material/Schedule";
 import DirectionsIcon from "@mui/icons-material/Directions";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { setProducts } from "./slice";
@@ -136,6 +137,13 @@ export default function Products(props: ProductsProps) {
       {/* Premium Header Section */}
       <div className="products-header-section">
         <div className="products-header-container">
+          <Box className="products-breadcrumb">
+            <Typography component={NavLink} to="/" className="breadcrumb-item">
+              Home
+            </Typography>
+            <Typography className="breadcrumb-separator">/</Typography>
+            <Typography className="breadcrumb-item active">Products</Typography>
+          </Box>
           <Box className="products-header-title">Jewellery Shop</Box>
           <Box className="products-header-subtitle">Discover our collection</Box>
         </div>
@@ -168,24 +176,24 @@ export default function Products(props: ProductsProps) {
           <div className="products-toolbar-right">
             <Stack className="products-search-group" direction="row" spacing={0}>
               <SearchIcon className="products-search-icon" />
-              <input
-                type="search"
+                <input
+                  type="search"
                 className="products-search-input"
                 placeholder="Search products..."
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") searchProductHandler();
-                }}
-              />
-              <Button
-                variant="contained"
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") searchProductHandler();
+                  }}
+                />
+                <Button
+                  variant="contained"
                 className="products-search-button"
-                onClick={searchProductHandler}
-              >
-                Search
-              </Button>
-            </Stack>
+                  onClick={searchProductHandler}
+                >
+                  Search
+                </Button>
+              </Stack>
           </div>
         </div>
 
@@ -209,7 +217,7 @@ export default function Products(props: ProductsProps) {
                 </button>
               ))}
             </div>
-          </div>
+              </div>
 
           {/* Product Grid */}
           <div className="products-grid-wrapper">
@@ -250,22 +258,22 @@ export default function Products(props: ProductsProps) {
                         )}
                         <div className="product-card-badge">{weightGram}</div>
                         <div className="product-card-overlay">
-                          <Button
+                        <Button
                             className="product-card-cart-btn"
-                            onClick={(e) => {
-                              onAdd({
-                                _id: product._id,
-                                quantity: 1,
-                                name: product.productName,
-                                price: product.productPrice,
-                                image: product.productImages[0],
-                              });
-                              e.stopPropagation();
-                            }}
-                          >
+                          onClick={(e) => {
+                            onAdd({
+                              _id: product._id,
+                              quantity: 1,
+                              name: product.productName,
+                              price: product.productPrice,
+                              image: product.productImages[0],
+                            });
+                            e.stopPropagation();
+                          }}
+                        >
                             <ShoppingCartIcon />
                             <span>Add to Cart</span>
-                          </Button>
+                        </Button>
                         </div>
                       </div>
                       <Box className="product-card-content">
@@ -291,7 +299,7 @@ export default function Products(props: ProductsProps) {
                           </Box>
                         </Box>
                       </Box>
-                    </div>
+                        </div>
                   );
                 })
               ) : (
@@ -303,26 +311,26 @@ export default function Products(props: ProductsProps) {
 
             {/* Pagination */}
             <div className="products-pagination">
-              <Pagination
-                count={
+            <Pagination
+              count={
                   products.length === productSearch.limit
-                    ? productSearch.page + 1
+                  ? productSearch.page + 1
                     : Math.max(productSearch.page + 1, 2)
-                }
-                page={productSearch.page}
-                renderItem={(item) => (
-                  <PaginationItem
-                    components={{
-                      previous: ArrowBackIcon,
-                      next: ArrowForwardIcon,
-                    }}
-                    {...item}
-                  />
-                )}
-                onChange={paginationHandler}
+              }
+              page={productSearch.page}
+              renderItem={(item) => (
+                <PaginationItem
+                  components={{
+                    previous: ArrowBackIcon,
+                    next: ArrowForwardIcon,
+                  }}
+                  {...item}
+                />
+              )}
+              onChange={paginationHandler}
                 shape="rounded"
                 size="large"
-              />
+            />
             </div>
           </div>
         </div>
@@ -419,7 +427,7 @@ export default function Products(props: ProductsProps) {
                   <Box className="address-info-text">
                     Monday - Saturday: 10:00 AM - 7:00 PM<br />
                     Sunday: 12:00 PM - 5:00 PM
-                  </Box>
+            </Box>
                 </div>
               </div>
               <div className="address-info-item">
@@ -428,7 +436,7 @@ export default function Products(props: ProductsProps) {
                   <Box className="address-info-label">Phone</Box>
                   <Box className="address-info-text">
                     <a href="tel:+82212345678">+82 2 1234 5678</a>
-                  </Box>
+            </Box>
                 </div>
               </div>
               <div className="address-info-item">
@@ -437,7 +445,7 @@ export default function Products(props: ProductsProps) {
                   <Box className="address-info-label">Email</Box>
                   <Box className="address-info-text">
                     <a href="mailto:info@facetandgold.com">info@facetandgold.com</a>
-                  </Box>
+            </Box>
                 </div>
               </div>
               <Button
@@ -455,24 +463,24 @@ export default function Products(props: ProductsProps) {
               </Button>
               <Box className="address-trust-line">
                 Secure payments • Certified materials
-              </Box>
-            </div>
+            </Box>
+      </div>
             {/* Map Panel */}
             <div className="address-map">
-              <iframe
+            <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3165.1157956945285!2d127.00147907550128!3d37.50518697205449!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca17b9151635d%3A0xcb143e3ba25deff0!2sTiffany%20%26%20Co.!5e0!3m2!1sen!2skr!4v1767944829358!5m2!1sen!2skr"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Google Map"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Google Map"
                 className="address-iframe"
-              ></iframe>
+            ></iframe>
             </div>
           </div>
-        </div>
+      </div>
       </div>
       <Newsletter />
     </div>

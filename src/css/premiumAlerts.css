@@ -16,6 +16,27 @@
   animation: premiumFadeOut 0.2s ease;
 }
 
+/* Hide backdrop for center alerts without gray background */
+.premium-swal-center {
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+
+.premium-swal-center.swal2-backdrop-show {
+  background: transparent !important;
+  backdrop-filter: none !important;
+}
+
+/* Ensure center positioning for alerts */
+.swal2-popup.swal2-center,
+.swal2-popup[style*="position: center"] {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  margin: 0 !important;
+}
+
 /* Popup Container */
 .premium-swal-popup {
   background: #FAF6EF !important;
@@ -269,6 +290,29 @@
   width: 40px !important;
   height: 40px !important;
   margin: 0 12px 0 0 !important;
+}
+
+/* Center alert without backdrop */
+.swal2-popup[style*="backdrop: false"] {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* Hide backdrop when backdrop is false */
+.swal2-container.swal2-backdrop-show:has(.swal2-popup[style*="backdrop: false"]) {
+  background: transparent !important;
+}
+
+/* Alternative: Hide backdrop for center alerts */
+.swal2-container:not(.swal2-backdrop-show) {
+  background: transparent !important;
+}
+
+/* Center positioned alerts styling */
+.swal2-popup.premium-swal-popup {
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* Timer Progress Bar */

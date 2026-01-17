@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Container, Box, Typography, Avatar, Chip } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
 import Button from "@mui/material/Button";
@@ -7,7 +7,6 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabPanel from "@mui/lab/TabPanel";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -16,24 +15,18 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 
 import { useDispatch, useSelector } from "react-redux";
-import { Dispatch } from "@reduxjs/toolkit";
-import { setJewelleryShop, setChosenProduct } from "./slice";
 import { createSelector } from "reselect";
+import { setJewelleryShop, setChosenProduct } from "./slice";
 import { retrieveChosenProduct, retrieveJewelleryShop } from "./selector";
-import { Member } from "../../../lib/types/member";
-import { Product } from "../../../lib/types/product";
 import MemberService from "../../services/MemberService";
 import ProductService from "../../services/ProductService";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import { serverApi } from "../../../lib/config";
 import { CartItem } from "../../../lib/types/search";
 import Newsletter from "../homePage/Newsletter";
+import "../../../css/contactPage.css";
 
 /** REDUX SLICE & SELECTOR */
-const actionDispatch = (dispatch: Dispatch) => ({
-  setJewelleryShop: (data: Member) => dispatch(setJewelleryShop(data)),
-  setChosenProduct: (data: Product) => dispatch(setChosenProduct(data)),
-});
 const chosenProductRetriever = createSelector(
   retrieveChosenProduct,
   (chosenProduct) => ({
@@ -54,25 +47,66 @@ interface ChosenProductProps {
 export default function ChosenProduct(props: ChosenProductProps) {
   const { onAdd } = props;
   const { productId } = useParams<{ productId: string }>();
-  const { setJewelleryShop, setChosenProduct } = actionDispatch(useDispatch());
+  const dispatch = useDispatch();
   const { chosenProduct } = useSelector(chosenProductRetriever);
   const { jewelleryShop } = useSelector(jewelleryShopRetriever);
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
   const [tabValue, setTabValue] = useState("1");
 
+  // Refs to prevent duplicate fetches
+  const lastFetchedProductIdRef = useRef<string | null>(null);
+  const jewelleryShopFetchedRef = useRef<boolean>(false);
+
+  // Fetch product when productId changes
   useEffect(() => {
+    // Guard: Don't refetch if same productId
+    if (!productId || lastFetchedProductIdRef.current === productId) {
+      return;
+    }
+
+    // Mark this productId as being fetched
+    lastFetchedProductIdRef.current = productId;
+
     const product = new ProductService();
     product
       .getProduct(productId)
-      .then((data) => setChosenProduct(data))
-      .catch((err) => console.log(err));
+      .then((data) => {
+        // Only update if productId hasn't changed (prevent race conditions)
+        if (lastFetchedProductIdRef.current === productId) {
+          dispatch(setChosenProduct(data));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        // Reset ref if fetch failed (so it can retry)
+        if (lastFetchedProductIdRef.current === productId) {
+          lastFetchedProductIdRef.current = null;
+        }
+      });
+  }, [productId, dispatch]);
+
+  // Fetch jewellery shop only once
+  useEffect(() => {
+    // Guard: Only fetch if not already fetched or already in Redux state
+    if (jewelleryShopFetchedRef.current || jewelleryShop) {
+      return;
+    }
+
+    jewelleryShopFetchedRef.current = true;
 
     const member = new MemberService();
     member
       .getJewelleryShop()
-      .then((data) => setJewelleryShop(data))
-      .catch((err) => console.log(err));
-  }, [productId, setChosenProduct, setJewelleryShop]);
+      .then((data) => {
+        dispatch(setJewelleryShop(data));
+      })
+      .catch((err) => {
+        console.log(err);
+        // Reset flag on error so it can retry
+        jewelleryShopFetchedRef.current = false;
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty array: fetch only once on mount
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
     setTabValue(newValue);
@@ -131,27 +165,22 @@ export default function ChosenProduct(props: ChosenProductProps) {
 
   return (
     <div className={"chosen-product"}>
-      {/* Breadcrumbs */}
-      <Container className={"product-breadcrumbs-container"} maxWidth="lg">
-        <Box className={"product-breadcrumbs"}>
-          <Typography className={"breadcrumb-item"}>Home</Typography>
-          <NavigateNextIcon className={"breadcrumb-separator"} />
-          <Typography className={"breadcrumb-item"}>Shop</Typography>
-          <NavigateNextIcon className={"breadcrumb-separator"} />
-          <Typography className={"breadcrumb-item"}>{getProductCategory()}</Typography>
-          <NavigateNextIcon className={"breadcrumb-separator"} />
-          <Typography className={"breadcrumb-item active"}>Shop Details</Typography>
-        </Box>
-      </Container>
-
-      {/* Jewellery Details Title */}
-      <Container className={"jewellery-details-header-container"} maxWidth="lg">
-        <Box className={"jewellery-details-header"}>
-          <Typography className={"jewellery-details-title"}>
-            Jewellery Details
-          </Typography>
-        </Box>
-      </Container>
+      {/* Header Section */}
+      <Box className="contact-header-section">
+        <Container className="contact-header-container" maxWidth="lg">
+          <Box className="contact-breadcrumb">
+            <Typography component={NavLink} to="/" className="breadcrumb-item">
+              Home
+            </Typography>
+            <Typography className="breadcrumb-separator">/</Typography>
+            <Typography component={NavLink} to="/products" className="breadcrumb-item">
+              Products
+            </Typography>
+          </Box>
+          <Box className="contact-header-title">Jewellery Details</Box>
+          <Box className="contact-header-subtitle">Explore our finest pieces</Box>
+        </Container>
+      </Box>
 
       {/* Main Product Section */}
       <Container className={"product-container"} maxWidth="lg">

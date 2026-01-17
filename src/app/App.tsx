@@ -9,14 +9,19 @@ import OrdersRedirect from "./screens/ordersPage/OrdersRedirect";
 import UserPage from "./screens/userPage";
 import OrderSuccessPage from "./screens/orderSuccessPage/OrderSuccessPage";
 import OrderManagePage from "./screens/orderManagePage/OrderManagePage";
+import OrderActionsPage from "./screens/orderActionsPage/OrderActionsPage";
 import CartPage from "./screens/cartPage/CartPage";
 import CheckoutPage from "./screens/checkoutPage/CheckoutPage";
 import HomeNavbar from "./components/headers/HomeNavbar";
 import OtherNavbar from "./components/headers/OtherNavbar";
 import Footer from "./components/footer";
 import HelpPage from "./screens/helpPage";
+import ContactPage from "./screens/contactPage/ContactPage";
+import BlogPage from "./screens/blogPage/BlogPage";
 import useBasket from "./hooks/useBasket";
 import AuthenticationModal from "./components/auth";
+import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTopButton from "./components/ScrollToTopButton";
 import "../css/app.css";
 import "../css/navbar.css";
 import "../css/footer.css";
@@ -24,6 +29,7 @@ import "../css/cart.css";
 import "../css/checkout.css";
 import "../css/premiumAlerts.css";
 import "../css/orderSuccessPage.css";
+import "../css/blog.css";
 
 function App() {
   const location = useLocation();
@@ -37,6 +43,7 @@ function App() {
 
   return (
     <>
+      <ScrollToTop />
       {location.pathname === "/" ? (
         <HomeNavbar
           cartItems={cartItems}
@@ -77,8 +84,14 @@ function App() {
         <Route path="/member-page">
           <UserPage />
         </Route>
+        <Route path="/contact">
+          <ContactPage />
+        </Route>
         <Route path="/help">
           <HelpPage />
+        </Route>
+        <Route path="/blog">
+          <BlogPage />
         </Route>
         <Route path="/cart">
           <CartPage
@@ -101,11 +114,15 @@ function App() {
         <Route path="/orders/:orderId/manage">
           <OrderManagePage />
         </Route>
+        <Route path="/order-actions/:orderId">
+          <OrderActionsPage />
+        </Route>
         <Route path="/">
           <HomePage />
         </Route>
       </Switch>
       <Footer />
+      <ScrollToTopButton />
       <AuthenticationModal
         signupOpen={signupOpen}
         loginOpen={loginOpen}

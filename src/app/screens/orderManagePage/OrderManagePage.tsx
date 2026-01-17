@@ -12,12 +12,16 @@ import SupportIcon from "@mui/icons-material/Support";
 import CancelIcon from "@mui/icons-material/Cancel";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import VerifiedIcon from "@mui/icons-material/Verified";
 import OrderService from "../../services/OrderService";
 import { Order, OrderItem } from "../../../lib/types/order";
 import { OrderStatus } from "../../../lib/enums/order.enum";
 import { Product } from "../../../lib/types/product";
 import { serverApi } from "../../../lib/config";
-import { sweetErrorHandling, sweetTopSmallSuccessAlert, sweetFailureProvider, sweetTopSuccessAlert } from "../../../lib/sweetAlert";
+import { sweetErrorHandling, sweetTopSmallSuccessAlert, sweetFailureProvider, sweetTopSuccessAlert, premiumConfirmAlert } from "../../../lib/sweetAlert";
+import { OrderUpdateInput } from "../../../lib/types/order";
+import { useGlobals } from "../../hooks/useGlobals";
+import Newsletter from "../homePage/Newsletter";
 import "../../../css/orderManagePage.css";
 
 export default function OrderManagePage() {
@@ -25,6 +29,12 @@ export default function OrderManagePage() {
   const history = useHistory();
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
+  const { setOrderBuilder } = useGlobals();
+
+  useEffect(() => {
+    // Scroll to top when page loads
+    window.scrollTo(0, 0);
+  }, [orderId]);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -79,14 +89,6 @@ export default function OrderManagePage() {
     sweetTopSmallSuccessAlert("Support team will contact you shortly!", 2000);
   };
 
-  const handleRequestRefund = () => {
-    if (order?.orderStatus === OrderStatus.FINISH) {
-      sweetFailureProvider("Refund cannot be requested for delivered orders.", false, "");
-      return;
-    }
-    sweetTopSmallSuccessAlert("Refund request submitted successfully!", 2000);
-  };
-
   const handleCancelOrder = () => {
     if (order?.orderStatus !== OrderStatus.PAUSE && order?.orderStatus !== OrderStatus.PROCESS) {
       sweetFailureProvider("Order cannot be cancelled at this stage.", false, "");
@@ -100,7 +102,40 @@ export default function OrderManagePage() {
       sweetFailureProvider("Reviews can only be submitted for delivered orders.", false, "");
       return;
     }
-    sweetTopSmallSuccessAlert("Review form will open shortly!", 2000);
+    history.push(`/order-actions/${orderId}`);
+  };
+
+  const handleConfirmDelivery = async () => {
+    try {
+      if (!order || order.orderStatus !== OrderStatus.PROCESS) {
+        sweetFailureProvider("Order cannot be confirmed at this stage.", false, "");
+        return;
+      }
+
+      const result = await premiumConfirmAlert(
+        "Confirm Delivery",
+        "Have you received your order?",
+        "Yes, Received",
+        "Cancel"
+      );
+
+      if (result.isConfirmed) {
+        const orderService = new OrderService();
+        const input: OrderUpdateInput = {
+          orderId: order._id,
+          orderStatus: OrderStatus.FINISH,
+        };
+        await orderService.updateOrder(input);
+        setOrderBuilder(new Date());
+        sweetTopSmallSuccessAlert("Delivery confirmed! Redirecting...", 2000);
+        setTimeout(() => {
+          history.push(`/order-actions/${orderId}`);
+        }, 2000);
+      }
+    } catch (err) {
+      console.log("Error confirming delivery:", err);
+      sweetErrorHandling(err).then();
+    }
   };
 
   if (loading) {
@@ -320,6 +355,17 @@ export default function OrderManagePage() {
                 <Typography className="order-manage-card-title">Manage Your Order</Typography>
                 <Divider className="order-manage-divider" />
                 <Box className="manage-actions">
+                  {order.orderStatus === OrderStatus.PROCESS && (
+                    <Button
+                      variant="contained"
+                      className="manage-action-btn primary confirm-delivery"
+                      startIcon={<VerifiedIcon />}
+                      onClick={handleConfirmDelivery}
+                      fullWidth
+                    >
+                      Confirm Delivery
+                    </Button>
+                  )}
                   <Button
                     variant="outlined"
                     className="manage-action-btn"
@@ -337,16 +383,6 @@ export default function OrderManagePage() {
                     fullWidth
                   >
                     Contact Support
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    className="manage-action-btn"
-                    startIcon={<AssignmentIcon />}
-                    onClick={handleRequestRefund}
-                    disabled={order.orderStatus === OrderStatus.FINISH}
-                    fullWidth
-                  >
-                    Request Refund
                   </Button>
                   <Button
                     variant="outlined"
@@ -374,6 +410,9 @@ export default function OrderManagePage() {
           </Box>
         </Box>
       </Container>
+
+      {/* Newsletter Section */}
+      <Newsletter />
     </div>
   );
 }

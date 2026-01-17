@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, CardContent, Typography, TextField, Button } from "@mui/material";
+import { Box, Card, CardContent, Typography, TextField, Button, Stack } from "@mui/material";
 import { useState } from "react";
 import { T } from "../../../lib/types/common";
 
@@ -20,58 +20,68 @@ export default function PaymentMethodPanel() {
   };
 
   return (
-    <Card className="account-panel-card" elevation={0}>
-      <CardContent className="account-panel-content">
+    <Card className="checkout-form-card" elevation={0}>
+      <CardContent className="checkout-form-content">
         <Typography className="account-panel-title">Payment Method</Typography>
-        <Box className="account-panel-body">
-          <Box className="account-payment-icons">
+        
+        <Stack spacing={2.5} className="checkout-form-stack">
+          <Box className="checkout-payment-icons-header">
             <img src="/icons/western-card.svg" alt="Western Union" />
             <img src="/icons/master-card.svg" alt="Mastercard" />
             <img src="/icons/paypal-card.svg" alt="PayPal" />
             <img src="/icons/visa-card.svg" alt="Visa" />
           </Box>
+          
           <TextField
-            label="Card Number"
+            label="Card Number *"
             placeholder="1234 5678 9012 3456"
             value={cardNumber}
             onChange={handleCardNumberChange}
             fullWidth
-            className="account-form-field"
+            className="checkout-form-field"
+            required
           />
-          <Box className="account-form-row">
+          
+          <Box className="checkout-form-row">
             <TextField
-              label="Expiry Date"
+              label="Expiry Date *"
               placeholder="MM / YY"
               value={cardExpiry}
               onChange={handleCardExpiryChange}
               fullWidth
-              className="account-form-field"
+              className="checkout-form-field"
+              required
             />
             <TextField
-              label="CVV"
+              label="CVV *"
               placeholder="123"
               value={cardCVV}
               onChange={handleCardCVVChange}
               fullWidth
-              className="account-form-field"
+              className="checkout-form-field"
+              required
             />
           </Box>
+          
           <TextField
-            label="Cardholder Name"
+            label="Cardholder Name *"
             placeholder="John Doe"
             value={cardName}
             onChange={handleCardNameChange}
             fullWidth
-            className="account-form-field"
+            className="checkout-form-field"
+            required
           />
+          
           <Button
             variant="contained"
-            className="account-panel-save-btn"
+            className="checkout-place-order-btn"
             onClick={handleSavePayment}
+            fullWidth
           >
             Save Payment Method
           </Button>
-        </Box>
+        </Stack>
       </CardContent>
     </Card>
   );

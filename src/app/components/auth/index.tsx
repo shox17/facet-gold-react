@@ -144,48 +144,48 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
               <Box className="auth-form-container">
                 <Box className="auth-form-field-wrapper">
                   <label className="auth-form-label">Username</label>
-                  <TextField
+              <TextField
                     className="auth-form-input"
                     id="signup-username"
                     name="memberNick"
-                    variant="outlined"
+                variant="outlined"
                     placeholder="Enter your username"
                     value={memberNick}
-                    onChange={handleUsername}
+                onChange={handleUsername}
                     fullWidth
-                  />
+              />
                 </Box>
                 <Box className="auth-form-field-wrapper">
                   <label className="auth-form-label">Phone Number</label>
-                  <TextField
+              <TextField
                     className="auth-form-input"
                     id="signup-phone"
                     name="memberPhone"
-                    variant="outlined"
+                variant="outlined"
                     placeholder="Enter your phone number"
                     value={memberPhone}
-                    onChange={handlePhone}
+                onChange={handlePhone}
                     fullWidth
-                  />
+              />
                 </Box>
                 <Box className="auth-form-field-wrapper">
                   <label className="auth-form-label">Password</label>
-                  <TextField
+              <TextField
                     className="auth-form-input"
                     id="signup-password"
                     name="memberPassword"
                     type="password"
-                    variant="outlined"
+                variant="outlined"
                     placeholder="Enter your password"
                     value={memberPassword}
-                    onChange={handlePassword}
-                    onKeyDown={handlePasswordKeyDown}
+                onChange={handlePassword}
+                onKeyDown={handlePasswordKeyDown}
                     fullWidth
-                  />
+              />
                 </Box>
                 <Button
                   className="auth-submit-button"
-                  onClick={handleSignupRequest}
+                onClick={handleSignupRequest}
                   variant="contained"
                 >
                   Sign Up
@@ -227,20 +227,20 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
               <Box className="auth-form-container">
                 <Box className="auth-form-field-wrapper">
                   <label className="auth-form-label">Username</label>
-                  <TextField
+              <TextField
                     className="auth-form-input"
                     id="login-username"
                     name="memberNick"
-                    variant="outlined"
+                variant="outlined"
                     placeholder="Enter your username"
                     value={memberNick}
-                    onChange={handleUsername}
+                onChange={handleUsername}
                     fullWidth
-                  />
+              />
                 </Box>
                 <Box className="auth-form-field-wrapper">
                   <label className="auth-form-label">Password</label>
-                  <TextField
+              <TextField
                     className="auth-form-input"
                     id="login-password"
                     name="memberPassword"
@@ -248,14 +248,14 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
                     variant="outlined"
                     placeholder="Enter your password"
                     value={memberPassword}
-                    onChange={handlePassword}
-                    onKeyDown={handlePasswordKeyDown}
+                onChange={handlePassword}
+                onKeyDown={handlePasswordKeyDown}
                     fullWidth
-                  />
+              />
                 </Box>
                 <Button
                   className="auth-submit-button"
-                  onClick={handleLoginRequest}
+                onClick={handleLoginRequest}
                   variant="contained"
                 >
                   Sign In

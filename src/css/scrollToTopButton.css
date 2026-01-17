@@ -1,0 +1,80 @@
+/** Premium Scroll to Top Button - Facet & Gold **/
+
+.scroll-to-top-button {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.scroll-to-top-button.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top-card {
+  background: linear-gradient(135deg, #C9A24D 0%, #D4B05A 100%);
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(201, 162, 77, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-to-top-button:hover .scroll-to-top-card {
+  background: linear-gradient(135deg, #B8923D 0%, #C9A24D 100%);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 24px rgba(201, 162, 77, 0.4);
+}
+
+.scroll-to-top-button:active .scroll-to-top-card {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(201, 162, 77, 0.3);
+}
+
+.scroll-to-top-icon {
+  font-size: 28px !important;
+  color: #FFFFFF !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .scroll-to-top-button {
+    bottom: 24px;
+    right: 24px;
+  }
+
+  .scroll-to-top-card {
+    width: 48px;
+    height: 48px;
+  }
+
+  .scroll-to-top-icon {
+    font-size: 24px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .scroll-to-top-button {
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .scroll-to-top-card {
+    width: 44px;
+    height: 44px;
+  }
+
+  .scroll-to-top-icon {
+    font-size: 22px !important;
+  }
+}

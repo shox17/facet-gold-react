@@ -113,7 +113,7 @@ export const premiumConfirmConfig = (
   } as SweetAlertOptions;
 };
 
-// Small toast success (for subtle notifications)
+// Small toast success (for subtle notifications - centered, no backdrop)
 export const premiumToastConfig = (
   title: string,
   duration: number = 2000
@@ -123,14 +123,20 @@ export const premiumToastConfig = (
     icon: "success",
     iconColor: COLORS.gold,
     title,
-    position: "top-end",
+    position: "center",
     showConfirmButton: false,
     timer: duration,
-    timerProgressBar: true,
-    toast: true,
-    width: "360px",
-    padding: "16px 20px",
-    background: COLORS.ivory,
+    timerProgressBar: false,
+    toast: false,
+    width: "400px",
+    padding: "24px 32px",
+    background: COLORS.white,
     color: COLORS.charcoal,
+    backdrop: "rgba(0, 0, 0, 0)",
+    allowOutsideClick: true,
+    customClass: {
+      ...basePremiumConfig.customClass,
+      container: "premium-swal-container premium-swal-center",
+    },
   } as SweetAlertOptions;
 };

@@ -63,13 +63,17 @@ export default function OtherNavbar(props: OtherNavbarProps) {
               </NavLink>
             </Box>
 
-            {authMember ? (
-              <Box className={"hover-line"}>
-                <NavLink to="/orders" activeClassName={"underline"}>
-                  Orders
-                </NavLink>
-              </Box>
-            ) : null}
+            <Box className={"hover-line"}>
+              <NavLink to="/contact" activeClassName={"underline"}>
+                Contact Us
+              </NavLink>
+            </Box>
+
+            <Box className={"hover-line"}>
+              <NavLink to="/blog" activeClassName={"underline"}>
+                Blog
+              </NavLink>
+            </Box>
 
             <Box className={"hover-line"}>
               <NavLink to="/help" activeClassName={"underline"}>
@@ -86,13 +90,13 @@ export default function OtherNavbar(props: OtherNavbarProps) {
             />
 
             {!authMember ? (
-              <Button
-                variant="contained"
-                className="login-button"
-                onClick={() => setLoginOpen(true)}
-              >
-                Login
-              </Button>
+                <Button
+                  variant="contained"
+                  className="login-button"
+                  onClick={() => setLoginOpen(true)}
+                >
+                  Login
+                </Button>
             ) : (
               <img
                 className="user-avatar"

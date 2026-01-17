@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Card, CardContent, Typography, TextField, Button } from "@mui/material";
+import { Card, CardContent, Typography, TextField, Button, Stack } from "@mui/material";
 import { useGlobals } from "../../hooks/useGlobals";
 import { useState } from "react";
 import { T } from "../../../lib/types/common";
@@ -43,28 +43,31 @@ export default function ManageAddressPanel() {
   };
 
   return (
-    <Card className="account-panel-card" elevation={0}>
-      <CardContent className="account-panel-content">
+    <Card className="checkout-form-card" elevation={0}>
+      <CardContent className="checkout-form-content">
         <Typography className="account-panel-title">Manage Address</Typography>
-        <Box className="account-panel-body">
+        
+        <Stack spacing={2.5} className="checkout-form-stack">
           <TextField
-            label="Address"
-            placeholder="Enter your address"
+            label="Address *"
+            placeholder="Enter your full address"
             value={address}
             onChange={handleAddressChange}
             fullWidth
             multiline
             rows={4}
-            className="account-form-field"
+            className="checkout-form-field"
+            required
           />
           <Button
             variant="contained"
-            className="account-panel-save-btn"
+            className="checkout-place-order-btn"
             onClick={handleSaveAddress}
+            fullWidth
           >
             Save Address
           </Button>
-        </Box>
+        </Stack>
       </CardContent>
     </Card>
   );

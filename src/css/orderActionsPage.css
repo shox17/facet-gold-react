@@ -1,13 +1,13 @@
-/** Premium Track & Manage Order Page - Facet & Gold **/
+/** Premium Order Actions Page - Facet & Gold (Matching OrderManagePage Style) **/
 
-.order-manage-page {
+.order-actions-page {
   width: 100%;
   min-height: 100vh;
   background: #F7F2E8;
 }
 
 /** Top Banner **/
-.order-manage-banner {
+.order-actions-banner {
   width: 100%;
   background: #FFFFFF;
   padding: 60px 0 48px;
@@ -15,8 +15,7 @@
   overflow: hidden;
 }
 
-
-.order-manage-banner-container {
+.order-actions-banner-container {
   position: relative;
   z-index: 1;
   display: flex;
@@ -25,7 +24,7 @@
   text-align: center;
 }
 
-.order-manage-breadcrumb {
+.order-actions-breadcrumb {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,7 +54,7 @@
   font-weight: 500;
 }
 
-.order-manage-banner-title {
+.order-actions-banner-title {
   font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif !important;
   font-size: clamp(40px, 5vw, 56px) !important;
   font-weight: 700 !important;
@@ -64,7 +63,7 @@
   letter-spacing: -0.5px !important;
 }
 
-.order-manage-banner-info {
+.order-actions-banner-info {
   display: flex;
   gap: 40px;
   flex-wrap: wrap;
@@ -105,12 +104,6 @@
   border: 1px solid rgba(76, 175, 80, 0.3) !important;
 }
 
-.status-chip.processing {
-  background: rgba(201, 162, 76, 0.1) !important;
-  color: #C9A24C !important;
-  border: 1px solid rgba(201, 162, 76, 0.3) !important;
-}
-
 .status-chip.delivered {
   background: rgba(76, 175, 80, 0.1) !important;
   color: #4CAF50 !important;
@@ -118,11 +111,11 @@
 }
 
 /** Main Container **/
-.order-manage-container {
+.order-actions-container {
   padding: 48px 24px 80px !important;
 }
 
-.order-manage-main-grid {
+.order-actions-main-grid {
   display: grid;
   grid-template-columns: 1fr 380px;
   gap: 32px;
@@ -130,7 +123,7 @@
 }
 
 /** Cards **/
-.order-manage-card {
+.order-actions-card {
   background: #FFFFFF !important;
   border-radius: 18px !important;
   border: 1px solid rgba(201, 162, 76, 0.15) !important;
@@ -138,15 +131,15 @@
   margin-bottom: 32px;
 }
 
-.order-manage-card:last-child {
+.order-actions-card:last-child {
   margin-bottom: 0;
 }
 
-.order-manage-card-content {
+.order-actions-card-content {
   padding: 32px !important;
 }
 
-.order-manage-card-title {
+.order-actions-card-title {
   font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif !important;
   font-size: clamp(24px, 2.5vw, 28px) !important;
   font-weight: 700 !important;
@@ -154,101 +147,19 @@
   margin-bottom: 20px !important;
 }
 
-.order-manage-divider {
+.order-actions-divider {
   margin-bottom: 24px !important;
   border-color: rgba(201, 162, 76, 0.2) !important;
 }
 
-/** Stepper **/
-.order-status-stepper {
-  padding: 0 !important;
-}
-
-.step-icon-wrapper {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(201, 162, 76, 0.1);
-  border: 2px solid rgba(201, 162, 76, 0.3);
-  color: #9A9A9A;
-  transition: all 0.3s ease;
-}
-
-.step-icon-wrapper.active {
-  background: linear-gradient(135deg, #C9A24C 0%, #B8944F 100%);
-  border-color: #C9A24C;
-  color: #FFFFFF;
-  box-shadow: 0 4px 12px rgba(201, 162, 76, 0.3);
-}
-
-.step-icon-wrapper svg {
-  font-size: 20px !important;
-}
-
-.step-label {
-  margin-left: 16px !important;
-}
-
-.step-title {
-  font-family: 'Inter', 'Lato', sans-serif !important;
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  color: #1E1E1E !important;
-  margin-bottom: 4px !important;
-}
-
-.step-description {
-  font-family: 'Inter', 'Lato', sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 400 !important;
-  color: #6B6B6B !important;
-  line-height: 1.5 !important;
-}
-
-/** Shipment Details **/
-.shipment-details {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.shipment-detail-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(201, 162, 76, 0.1);
-}
-
-.shipment-detail-item:last-child {
-  border-bottom: none;
-}
-
-.shipment-label {
-  font-family: 'Inter', 'Lato', sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  color: #6B6B6B !important;
-}
-
-.shipment-value {
-  font-family: 'Inter', 'Lato', sans-serif !important;
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  color: #1E1E1E !important;
-}
-
 /** Products List **/
-.order-products-list {
+.order-actions-products-list {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.order-product-item {
+.order-actions-product-item {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -258,7 +169,7 @@
   border: 1px solid rgba(201, 162, 76, 0.1);
 }
 
-.order-product-image {
+.order-actions-product-image {
   width: 80px;
   height: 80px;
   object-fit: cover;
@@ -266,21 +177,21 @@
   border: 1px solid rgba(201, 162, 76, 0.15);
 }
 
-.order-product-details {
+.order-actions-product-details {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.order-product-name {
+.order-actions-product-name {
   font-family: 'Inter', 'Lato', sans-serif !important;
   font-size: 16px !important;
   font-weight: 600 !important;
   color: #1E1E1E !important;
 }
 
-.order-product-category {
+.order-actions-product-category {
   font-family: 'Inter', 'Lato', sans-serif !important;
   font-size: 13px !important;
   font-weight: 400 !important;
@@ -288,14 +199,14 @@
   text-transform: capitalize;
 }
 
-.order-product-quantity {
+.order-actions-product-quantity {
   font-family: 'Inter', 'Lato', sans-serif !important;
   font-size: 13px !important;
   font-weight: 400 !important;
   color: #9A9A9A !important;
 }
 
-.order-product-price {
+.order-actions-product-price {
   font-family: 'Inter', 'Lato', sans-serif !important;
   font-size: 18px !important;
   font-weight: 700 !important;
@@ -303,26 +214,26 @@
 }
 
 /** Totals **/
-.order-totals {
+.order-actions-totals {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.order-totals-row {
+.order-actions-totals-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.order-totals-label {
+.order-actions-totals-label {
   font-family: 'Inter', 'Lato', sans-serif !important;
   font-size: 16px !important;
   font-weight: 400 !important;
   color: #6B6B6B !important;
 }
 
-.order-totals-value {
+.order-actions-totals-value {
   font-family: 'Inter', 'Lato', sans-serif !important;
   font-size: 18px !important;
   font-weight: 600 !important;
@@ -346,14 +257,17 @@
   color: #C9A24C !important;
 }
 
-/** Manage Actions **/
-.manage-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/** Action Cards Section **/
+.order-actions-cards-section {
+  margin-top: 0;
 }
 
-.manage-action-btn {
+/** Back to Orders Section **/
+.order-actions-back-section {
+  margin-top: 24px;
+}
+
+.order-actions-back-btn {
   font-family: 'Inter', 'Lato', sans-serif !important;
   font-size: 15px !important;
   font-weight: 600 !important;
@@ -366,44 +280,92 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-.manage-action-btn:hover {
+.order-actions-back-btn:hover {
   background: rgba(201, 162, 76, 0.05) !important;
   border-color: #C9A24C !important;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(201, 162, 76, 0.2);
 }
 
-.manage-action-btn.primary {
+.order-actions-manage-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.order-actions-manage-btn {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  padding: 14px 24px !important;
+  border-radius: 12px !important;
+  border: 2px solid rgba(201, 162, 76, 0.3) !important;
+  color: #1E1E1E !important;
+  background: #FFFFFF !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.order-actions-manage-btn:hover {
+  background: rgba(201, 162, 76, 0.05) !important;
+  border-color: #C9A24C !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(201, 162, 76, 0.2);
+}
+
+.order-actions-manage-btn.primary {
   background: linear-gradient(135deg, #C9A24C 0%, #B8944F 100%) !important;
   color: #FFFFFF !important;
   border-color: #C9A24C !important;
 }
 
-.manage-action-btn.primary:hover {
+.order-actions-manage-btn.primary:hover {
   background: linear-gradient(135deg, #B8944F 0%, #A8843F 100%) !important;
   box-shadow: 0 6px 20px rgba(201, 162, 76, 0.4);
 }
 
-.manage-action-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+/** Order Summary **/
+.order-actions-summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.manage-action-btn.confirm-delivery {
-  margin-bottom: 8px;
-  background: linear-gradient(135deg, #4CAF50 0%, #45A049 100%) !important;
-  color: #FFFFFF !important;
-  border-color: #4CAF50 !important;
+.order-actions-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.manage-action-btn.confirm-delivery:hover {
-  background: linear-gradient(135deg, #45A049 0%, #3D8B40 100%) !important;
-  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+.order-actions-summary-label {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  color: #6B6B6B !important;
+}
+
+.order-actions-summary-value {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #1E1E1E !important;
+}
+
+.order-actions-payment-status {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.payment-status-chip {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
 }
 
 /** Loading & Empty States **/
-.order-manage-loading,
-.order-manage-empty {
+.order-actions-loading,
+.order-actions-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -413,7 +375,7 @@
   min-height: 60vh;
 }
 
-.order-manage-empty-icon {
+.order-actions-empty-icon {
   width: 120px;
   height: 120px;
   display: flex;
@@ -426,11 +388,11 @@
   color: #C9A24C;
 }
 
-.order-manage-empty-icon svg {
+.order-actions-empty-icon svg {
   font-size: 64px !important;
 }
 
-.order-manage-empty-title {
+.order-actions-empty-title {
   font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif !important;
   font-size: clamp(36px, 4vw, 48px) !important;
   font-weight: 700 !important;
@@ -438,7 +400,7 @@
   margin-bottom: 20px !important;
 }
 
-.order-manage-empty-subtitle {
+.order-actions-empty-subtitle {
   font-family: 'Inter', 'Lato', sans-serif !important;
   font-size: clamp(16px, 1.8vw, 18px) !important;
   color: #6B6B6B !important;
@@ -446,7 +408,7 @@
   max-width: 520px;
 }
 
-.order-manage-empty-btn {
+.order-actions-empty-btn {
   background: linear-gradient(135deg, #C9A24C 0%, #B8944F 100%) !important;
   color: #FFFFFF !important;
   padding: 18px 48px !important;
@@ -458,64 +420,67 @@
   box-shadow: 0 6px 20px rgba(201, 162, 76, 0.3) !important;
 }
 
-.order-manage-empty-btn:hover {
+.order-actions-empty-btn:hover {
   background: linear-gradient(135deg, #B8944F 0%, #A8843F 100%) !important;
   transform: translateY(-2px);
 }
 
 /** Responsive Design **/
 @media (max-width: 1024px) {
-  .order-manage-main-grid {
+  .order-actions-main-grid {
     grid-template-columns: 1fr;
     gap: 24px;
   }
 
-  .order-manage-right-column {
+  .order-actions-right-column {
     order: -1;
   }
 }
 
 @media (max-width: 768px) {
-  .order-manage-banner {
+  .order-actions-banner {
     padding: 40px 0 32px;
   }
 
-
-  .order-manage-banner-info {
+  .order-actions-banner-info {
     flex-direction: column;
     gap: 20px;
   }
 
-  .order-manage-container {
+  .order-actions-container {
     padding: 32px 16px 60px !important;
   }
 
-  .order-manage-card-content {
+  .order-actions-card-content {
     padding: 24px !important;
   }
 
-  .order-manage-main-grid {
+  .order-actions-main-grid {
     gap: 20px;
+  }
+
+  .order-actions-manage-grid {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 600px) {
-  .order-manage-banner-title {
+  .order-actions-banner-title {
     font-size: clamp(32px, 5vw, 42px) !important;
     margin-bottom: 24px !important;
   }
 
-  .order-product-item {
+  .order-actions-product-item {
     flex-direction: column;
     text-align: center;
   }
 
-  .order-product-image {
+  .order-actions-product-image {
     width: 100px;
     height: 100px;
   }
 
-  .manage-action-btn {
+  .order-actions-manage-btn {
     padding: 12px 20px !important;
     font-size: 14px !important;
   }

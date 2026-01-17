@@ -69,13 +69,17 @@ export default function HomeNavbar(props: HomeNavbarProps) {
               </NavLink>
             </Box>
 
-            {authMember ? (
               <Box className={"hover-line"}>
-                <NavLink to="/orders" activeClassName={"underline"}>
-                  Orders
+              <NavLink to="/contact" activeClassName={"underline"}>
+                Contact Us
                 </NavLink>
               </Box>
-            ) : null}
+
+            <Box className={"hover-line"}>
+              <NavLink to="/blog" activeClassName={"underline"}>
+                Blog
+              </NavLink>
+            </Box>
 
             <Box className={"hover-line"}>
               <NavLink to="/help" activeClassName={"underline"}>
@@ -143,17 +147,17 @@ export default function HomeNavbar(props: HomeNavbarProps) {
               <Box className="trust-item">
                 <AssignmentReturnIcon className="trust-icon" />
                 <span>14-Day Returns</span>
-              </Box>
+            </Box>
             </Stack>
             <Stack className={"hero-buttons"}>
-              <Button
-                variant={"contained"}
+                <Button
+                  variant={"contained"}
                 className={"hero-btn-primary"}
                 onClick={() => history.push("/products")}
                 endIcon={<ArrowForwardIcon />}
-              >
+                >
                 Browse Collections
-              </Button>
+                </Button>
             </Stack>
           </Stack>
         </Stack>

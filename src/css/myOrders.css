@@ -1,0 +1,316 @@
+/** Premium My Orders Panel - Facet & Gold (Premium Jewelry Shop Style) **/
+
+.my-orders-section {
+  margin-bottom: 56px;
+}
+
+.my-orders-section:last-child {
+  margin-bottom: 0;
+}
+
+.my-orders-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid rgba(201, 162, 76, 0.2);
+}
+
+.my-orders-section-title {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif !important;
+  font-size: clamp(28px, 3vw, 32px) !important;
+  font-weight: 700 !important;
+  color: #1E1E1E !important;
+  margin: 0 !important;
+  letter-spacing: -0.3px !important;
+}
+
+.my-orders-section-subtitle {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #6B6B6B !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  margin: 0 !important;
+}
+
+.my-orders-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 28px;
+}
+
+/** Order Card **/
+.my-orders-card {
+  background: #FFFFFF !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(201, 162, 76, 0.15) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow: hidden;
+}
+
+.my-orders-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  border-color: rgba(201, 162, 76, 0.3) !important;
+}
+
+.my-orders-card-content {
+  padding: 28px !important;
+}
+
+.my-orders-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.my-orders-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.my-orders-order-id {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  color: #1E1E1E !important;
+  letter-spacing: 0.2px !important;
+}
+
+.my-orders-order-date {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #6B6B6B !important;
+}
+
+.my-orders-card-divider {
+  margin: 20px 0 !important;
+  border-color: rgba(201, 162, 76, 0.15) !important;
+}
+
+.my-orders-status-chip {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  font-size: 12px !important;
+  padding: 6px 14px !important;
+  height: auto !important;
+}
+
+.my-orders-status-chip.status-unpaid {
+  background: rgba(255, 152, 0, 0.1) !important;
+  color: #FF9800 !important;
+  border: 1px solid rgba(255, 152, 0, 0.3) !important;
+}
+
+.my-orders-status-chip.status-delivery {
+  background: rgba(33, 150, 243, 0.1) !important;
+  color: #2196F3 !important;
+  border: 1px solid rgba(33, 150, 243, 0.3) !important;
+}
+
+.my-orders-status-chip.status-completed {
+  background: rgba(76, 175, 80, 0.1) !important;
+  color: #4CAF50 !important;
+  border: 1px solid rgba(76, 175, 80, 0.3) !important;
+}
+
+.my-orders-card-body {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(201, 162, 76, 0.02);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(201, 162, 76, 0.08);
+}
+
+.my-orders-product-image {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(201, 162, 76, 0.15);
+  flex-shrink: 0;
+}
+
+.my-orders-card-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.my-orders-items-count {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #6B6B6B !important;
+  letter-spacing: 0.2px !important;
+}
+
+.my-orders-total-price {
+  font-family: 'Playfair Display', 'Cormorant Garamond', 'Georgia', serif !important;
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  color: #C9A24C !important;
+  letter-spacing: -0.3px !important;
+}
+
+.my-orders-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.my-orders-warning-text {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #FF9800 !important;
+  text-align: center;
+  padding: 10px;
+  background: rgba(255, 152, 0, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 152, 0, 0.15);
+}
+
+.my-orders-delivery-status {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #2196F3 !important;
+  text-align: center;
+  padding: 10px;
+  background: rgba(33, 150, 243, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(33, 150, 243, 0.15);
+}
+
+.my-orders-action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.my-orders-action-btn {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  padding: 12px 24px !important;
+  border-radius: 12px !important;
+  flex: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  letter-spacing: 0.2px !important;
+}
+
+.my-orders-action-btn.outlined {
+  border: 2px solid rgba(201, 162, 76, 0.3) !important;
+  color: #1E1E1E !important;
+  background: #FFFFFF !important;
+}
+
+.my-orders-action-btn.outlined:hover {
+  background: rgba(201, 162, 76, 0.05) !important;
+  border-color: #C9A24C !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(201, 162, 76, 0.2);
+}
+
+.my-orders-action-btn.cancel {
+  border: 2px solid rgba(244, 67, 54, 0.3) !important;
+  color: #F44336 !important;
+  background: #FFFFFF !important;
+}
+
+.my-orders-action-btn.cancel:hover {
+  background: rgba(244, 67, 54, 0.05) !important;
+  border-color: #F44336 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(244, 67, 54, 0.2);
+}
+
+.my-orders-action-btn.primary {
+  background: linear-gradient(135deg, #C9A24C 0%, #B8944F 100%) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(201, 162, 76, 0.3) !important;
+}
+
+.my-orders-action-btn.primary:hover {
+  background: linear-gradient(135deg, #B8944F 0%, #A8843F 100%) !important;
+  box-shadow: 0 6px 20px rgba(201, 162, 76, 0.4) !important;
+  transform: translateY(-2px);
+}
+
+.my-orders-empty {
+  padding: 60px 24px;
+  text-align: center;
+  background: rgba(201, 162, 76, 0.02);
+  border-radius: 12px;
+  border: 1px dashed rgba(201, 162, 76, 0.2);
+  grid-column: 1 / -1;
+}
+
+.my-orders-empty-text {
+  font-family: 'Inter', 'Lato', sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  color: #9A9A9A !important;
+  letter-spacing: 0.2px !important;
+}
+
+/** Responsive Design **/
+@media (max-width: 768px) {
+  .my-orders-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .my-orders-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .my-orders-action-buttons {
+    flex-direction: column;
+  }
+
+  .my-orders-action-btn {
+    width: 100%;
+  }
+
+  .my-orders-card-content {
+    padding: 24px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .my-orders-section {
+    margin-bottom: 40px;
+  }
+
+  .my-orders-card-body {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+  }
+
+  .my-orders-product-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .my-orders-total-price {
+    font-size: 24px !important;
+  }
+}

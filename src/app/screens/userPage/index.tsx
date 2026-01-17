@@ -10,6 +10,7 @@ import MyOrdersPanel from "./MyOrdersPanel";
 import ManageAddressPanel from "./ManageAddressPanel";
 import PaymentMethodPanel from "./PaymentMethodPanel";
 import PasswordManagerPanel from "./PasswordManagerPanel";
+import Newsletter from "../homePage/Newsletter";
 import "../../../css/userPage.css";
 
 export default function UserPage() {
@@ -61,6 +62,10 @@ export default function UserPage() {
           </Grid>
         </Grid>
       </Container>
+      
+      <Box className="user-page-newsletter-wrapper">
+        <Newsletter />
+      </Box>
     </div>
   );
 }

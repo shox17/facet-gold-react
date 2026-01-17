@@ -114,6 +114,19 @@
   width: 100%;
   margin: 48px auto 0;
   padding: 0 24px;
+  margin-bottom: 80px;
+}
+
+/** Newsletter Wrapper **/
+.user-page-newsletter-wrapper {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.user-page-newsletter-wrapper .newsletter-section {
+  margin-top: 0;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 .user-page-grid {
@@ -128,8 +141,6 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.03);
   padding: 24px 0;
   height: fit-content;
-  position: sticky;
-  top: 24px;
 }
 
 .account-sidebar-list {
