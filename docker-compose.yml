@@ -1,0 +1,14 @@
+services:
+  facet-gold-web:
+    container_name: facet-gold-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # URL the *browser* uses to reach your API (rebuild after changing)
+        REACT_APP_API_URL: ${REACT_APP_API_URL}
+    ports:
+      - "${WEB_HOST_PORT:-3001}:3000"
+    environment:
+      NODE_ENV: production
+    restart: unless-stopped
